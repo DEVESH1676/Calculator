@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { math } from '../utils/mathConfig';
-import { calculateEMI, calculateSIP } from '../utils/financialUtils';
-import { generatePoints } from '../utils/graphUtils'; // Need to mock or check this
+import { calculateEMI } from '../utils/financialUtils';
 
 describe('🛡️ MODCALC CERTIFICATION - Section 1 & 3', () => {
 
