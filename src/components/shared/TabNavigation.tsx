@@ -35,7 +35,7 @@ const TabNavigation: React.FC = () => {
     const activeMode = getActiveMode(location.pathname);
 
     return (
-    return (
+
         <div className={`flex relative p-1 rounded-2xl ${theme.glass} border ${theme.border} gap-1 shadow-inner`}>
             {tabs.map((tab) => {
                 const Icon = tab.icon;
@@ -66,7 +66,7 @@ const TabNavigation: React.FC = () => {
             })}
         </div>
     );
-    );
+
 };
 
 export default TabNavigation;
