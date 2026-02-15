@@ -120,7 +120,8 @@ export const calculateCAGR = (beginningValue: string, endingValue: string, years
         const EV = math.bignumber(endingValue);
         const T = math.bignumber(years);
 
-        if (T.equals(0)) return null;
+        // Security Patch: Prevent division by zero and illogical values
+        if (T.equals(0) || BV.equals(0)) return null;
 
         const CAGR = math.evaluate('(EV / BV)^(1/T) - 1', { BV, EV, T });
 
