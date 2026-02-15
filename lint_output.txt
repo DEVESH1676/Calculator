@@ -1,0 +1,408 @@
+
+> calculator@0.0.0 lint
+> eslint .
+
+
+D:\VSCode\Calculator\src\components\AIChatPanel.tsx
+  36:13  error  'initialStr' is never reassigned. Use 'const' instead  prefer-const
+
+D:\VSCode\Calculator\src\components\Calculator.tsx
+  164:17  error    'expression' is never reassigned. Use 'const' instead                                                                 prefer-const
+  165:17  error    'scope' is never reassigned. Use 'const' instead                                                                      prefer-const
+  173:17  error    'evalExpr' is never reassigned. Use 'const' instead                                                                   prefer-const
+  188:18  error    'err' is defined but never used                                                                                       @typescript-eslint/no-unused-vars
+  203:8   warning  React Hook useEffect has a missing dependency: 'handleButtonClick'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx
+   47:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-explicit-any
+   62:26  error    'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   66:18  error    'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   74:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx:74:9
+  72 |
+  73 |     useEffect(() => {
+> 74 |         generateData();
+     |         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  75 |     }, [expression, domain, isDegree]);
+  76 |
+  77 |     const handleZoomIn = () => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/set-state-in-effect
+   75:8   warning  React Hook useEffect has a missing dependency: 'generateData'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/exhaustive-deps
+   93:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-explicit-any
+  145:44  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx:145:44
+  143 |                             allowDataOverflow
+  144 |                         />
+> 145 |                         <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#ffffff20', strokeWidth: 1 }} />
+      |                                            ^^^^^^^^^^^^^ This component is created during render
+  146 |                         <ReferenceLine y={0} stroke="#00f5ff" strokeWidth={1} />
+  147 |                         <ReferenceLine x={0} stroke="#00f5ff" strokeWidth={1} />
+  148 |                         <Line
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx:93:27
+   91 |
+   92 |     // Custom Tooltip
+>  93 |     const CustomTooltip = ({ active, payload, label }: any) => {
+      |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  94 |         if (active && payload && payload.length) {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  95 |             return (
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 102 |         return null;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 103 |     };
+      | ^^^^^^ The component is created during render here
+  104 |
+  105 |     return (
+  106 |         <div className="flex flex-col h-full w-full bg-[#0f2027]/50 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">  react-hooks/static-components
+
+D:\VSCode\Calculator\src\components\HistorySidebar.tsx
+  30:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\HistorySidebar.tsx:30:13
+  28 |     useEffect(() => {
+  29 |         if (isOpen) {
+> 30 |             setIsVisible(true);
+     |             ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  31 |         } else {
+  32 |             const timer = setTimeout(() => setIsVisible(false), 300);
+  33 |             return () => clearTimeout(timer);  react-hooks/set-state-in-effect
+
+D:\VSCode\Calculator\src\components\Layout\MainLayout.tsx
+  64:61  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx
+   72:17   error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+   79:66   error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  106:69   error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  122:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:122:30
+  120 |                     {activeTool === 'emi' && (
+  121 |                         <>
+> 122 |                             <InputField label="Principal Amount (P)" value={emiInputs.principal} onChange={(e: any) => setEmiInputs({ ...emiInputs, principal: e.target.value })} placeholder="e.g. 100000" />
+      |                              ^^^^^^^^^^ This component is created during render
+  123 |                             <InputField label="Interest Rate (R %)" value={emiInputs.rate} onChange={(e: any) => setEmiInputs({ ...emiInputs, rate: e.target.value })} placeholder="e.g. 8.5" />
+  124 |                             <InputField label="Tenure (Years)" value={emiInputs.tenure} onChange={(e: any) => setEmiInputs({ ...emiInputs, tenure: e.target.value })} placeholder="e.g. 5" />
+  125 |                         </>
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                          react-hooks/static-components
+  122:112  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  123:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:123:30
+  121 |                         <>
+  122 |                             <InputField label="Principal Amount (P)" value={emiInputs.principal} onChange={(e: any) => setEmiInputs({ ...emiInputs, principal: e.target.value })} placeholder="e.g. 100000" />
+> 123 |                             <InputField label="Interest Rate (R %)" value={emiInputs.rate} onChange={(e: any) => setEmiInputs({ ...emiInputs, rate: e.target.value })} placeholder="e.g. 8.5" />
+      |                              ^^^^^^^^^^ This component is created during render
+  124 |                             <InputField label="Tenure (Years)" value={emiInputs.tenure} onChange={(e: any) => setEmiInputs({ ...emiInputs, tenure: e.target.value })} placeholder="e.g. 5" />
+  125 |                         </>
+  126 |                     )}
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                                                  react-hooks/static-components
+  123:106  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  124:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:124:30
+  122 |                             <InputField label="Principal Amount (P)" value={emiInputs.principal} onChange={(e: any) => setEmiInputs({ ...emiInputs, principal: e.target.value })} placeholder="e.g. 100000" />
+  123 |                             <InputField label="Interest Rate (R %)" value={emiInputs.rate} onChange={(e: any) => setEmiInputs({ ...emiInputs, rate: e.target.value })} placeholder="e.g. 8.5" />
+> 124 |                             <InputField label="Tenure (Years)" value={emiInputs.tenure} onChange={(e: any) => setEmiInputs({ ...emiInputs, tenure: e.target.value })} placeholder="e.g. 5" />
+      |                              ^^^^^^^^^^ This component is created during render
+  125 |                         </>
+  126 |                     )}
+  127 |                     {activeTool === 'sip' && (
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                              react-hooks/static-components
+  124:103  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  129:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:129:30
+  127 |                     {activeTool === 'sip' && (
+  128 |                         <>
+> 129 |                             <InputField label="Monthly Investment" value={sipInputs.investment} onChange={(e: any) => setSipInputs({ ...sipInputs, investment: e.target.value })} placeholder="e.g. 5000" />
+      |                              ^^^^^^^^^^ This component is created during render
+  130 |                             <InputField label="Expected Return Rate (R %)" value={sipInputs.rate} onChange={(e: any) => setSipInputs({ ...sipInputs, rate: e.target.value })} placeholder="e.g. 12" />
+  131 |                             <InputField label="Time Period (Years)" value={sipInputs.years} onChange={(e: any) => setSipInputs({ ...sipInputs, years: e.target.value })} placeholder="e.g. 10" />
+  132 |                         </>
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                  react-hooks/static-components
+  129:111  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  130:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:130:30
+  128 |                         <>
+  129 |                             <InputField label="Monthly Investment" value={sipInputs.investment} onChange={(e: any) => setSipInputs({ ...sipInputs, investment: e.target.value })} placeholder="e.g. 5000" />
+> 130 |                             <InputField label="Expected Return Rate (R %)" value={sipInputs.rate} onChange={(e: any) => setSipInputs({ ...sipInputs, rate: e.target.value })} placeholder="e.g. 12" />
+      |                              ^^^^^^^^^^ This component is created during render
+  131 |                             <InputField label="Time Period (Years)" value={sipInputs.years} onChange={(e: any) => setSipInputs({ ...sipInputs, years: e.target.value })} placeholder="e.g. 10" />
+  132 |                         </>
+  133 |                     )}
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                                          react-hooks/static-components
+  130:113  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  131:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:131:30
+  129 |                             <InputField label="Monthly Investment" value={sipInputs.investment} onChange={(e: any) => setSipInputs({ ...sipInputs, investment: e.target.value })} placeholder="e.g. 5000" />
+  130 |                             <InputField label="Expected Return Rate (R %)" value={sipInputs.rate} onChange={(e: any) => setSipInputs({ ...sipInputs, rate: e.target.value })} placeholder="e.g. 12" />
+> 131 |                             <InputField label="Time Period (Years)" value={sipInputs.years} onChange={(e: any) => setSipInputs({ ...sipInputs, years: e.target.value })} placeholder="e.g. 10" />
+      |                              ^^^^^^^^^^ This component is created during render
+  132 |                         </>
+  133 |                     )}
+  134 |                     {activeTool === 'cagr' && (
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                     react-hooks/static-components
+  131:107  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  136:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:136:30
+  134 |                     {activeTool === 'cagr' && (
+  135 |                         <>
+> 136 |                             <InputField label="Beginning Value" value={cagrInputs.beginningValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, beginningValue: e.target.value })} placeholder="e.g. 1000" />
+      |                              ^^^^^^^^^^ This component is created during render
+  137 |                             <InputField label="Ending Value" value={cagrInputs.endingValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, endingValue: e.target.value })} placeholder="e.g. 2000" />
+  138 |                             <InputField label="Time Period (Years)" value={cagrInputs.years} onChange={(e: any) => setCagrInputs({ ...cagrInputs, years: e.target.value })} placeholder="e.g. 5" />
+  139 |                         </>
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>  react-hooks/static-components
+  136:113  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  137:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:137:30
+  135 |                         <>
+  136 |                             <InputField label="Beginning Value" value={cagrInputs.beginningValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, beginningValue: e.target.value })} placeholder="e.g. 1000" />
+> 137 |                             <InputField label="Ending Value" value={cagrInputs.endingValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, endingValue: e.target.value })} placeholder="e.g. 2000" />
+      |                              ^^^^^^^^^^ This component is created during render
+  138 |                             <InputField label="Time Period (Years)" value={cagrInputs.years} onChange={(e: any) => setCagrInputs({ ...cagrInputs, years: e.target.value })} placeholder="e.g. 5" />
+  139 |                         </>
+  140 |                     )}
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                           react-hooks/static-components
+  137:107  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  138:30   error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:138:30
+  136 |                             <InputField label="Beginning Value" value={cagrInputs.beginningValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, beginningValue: e.target.value })} placeholder="e.g. 1000" />
+  137 |                             <InputField label="Ending Value" value={cagrInputs.endingValue} onChange={(e: any) => setCagrInputs({ ...cagrInputs, endingValue: e.target.value })} placeholder="e.g. 2000" />
+> 138 |                             <InputField label="Time Period (Years)" value={cagrInputs.years} onChange={(e: any) => setCagrInputs({ ...cagrInputs, years: e.target.value })} placeholder="e.g. 5" />
+      |                              ^^^^^^^^^^ This component is created during render
+  139 |                         </>
+  140 |                     )}
+  141 |                 </div>
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx:79:24
+  77 |     }
+  78 |
+> 79 |     const InputField = ({ label, value, onChange, placeholder }: any) => (
+     |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |         <div className="flex flex-col gap-1 mb-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |             <label className={`text-xs ${theme.text} opacity-70`}>{label}</label>
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 89 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 90 |     );
+     | ^^^^^^ The component is created during render here
+  91 |
+  92 |     return (
+  93 |         <div className={`flex flex-col h-full w-full p-4 overflow-y-auto custom-scrollbar`}>                               react-hooks/static-components
+  138:108  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\ProgrammerMode.tsx
+  67:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\StandardMode.tsx
+  164:17  error    'expression' is never reassigned. Use 'const' instead                                                                 prefer-const
+  165:17  error    'scope' is never reassigned. Use 'const' instead                                                                      prefer-const
+  173:17  error    'evalExpr' is never reassigned. Use 'const' instead                                                                   prefer-const
+  188:18  error    'err' is defined but never used                                                                                       @typescript-eslint/no-unused-vars
+  203:8   warning  React Hook useEffect has a missing dependency: 'handleButtonClick'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\VSCode\Calculator\src\components\modes\UnitConverterMode.tsx
+  27:18  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  40:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  60:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  70:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\modes\UnitConverterMode.tsx:70:9
+  68 |     // Set default units on category change
+  69 |     useEffect(() => {
+> 70 |         setFromUnit(units[activeCategory][0]);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  71 |         setToUnit(units[activeCategory][1]);
+  72 |     }, [activeCategory]);
+  73 |  react-hooks/set-state-in-effect
+  72:8   warning  React Hook useEffect has a missing dependency: 'units'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+
+✖ 47 problems (43 errors, 4 warnings)
+  7 errors and 0 warnings potentially fixable with the `--fix` option.
+

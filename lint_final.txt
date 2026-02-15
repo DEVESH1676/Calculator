@@ -1,0 +1,105 @@
+
+> calculator@0.0.0 lint
+> eslint .
+
+
+D:\VSCode\Calculator\src\components\AIChatPanel.tsx
+  36:13  error  'initialStr' is never reassigned. Use 'const' instead  prefer-const
+
+D:\VSCode\Calculator\src\components\Calculator.tsx
+  203:8  warning  React Hook useEffect has a missing dependency: 'handleButtonClick'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\VSCode\Calculator\src\components\CustomTooltip.tsx
+  3:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx
+  64:18  error  'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  72:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\GraphPanel.tsx:72:9
+  70 |
+  71 |     useEffect(() => {
+> 72 |         generateData();
+     |         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  73 |     }, [generateData]);
+  74 |
+  75 |     const handleZoomIn = () => {  react-hooks/set-state-in-effect
+
+D:\VSCode\Calculator\src\components\HistorySidebar.tsx
+  30:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\HistorySidebar.tsx:30:13
+  28 |     useEffect(() => {
+  29 |         if (isOpen) {
+> 30 |             setIsVisible(true);
+     |             ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  31 |         } else {
+  32 |             const timer = setTimeout(() => setIsVisible(false), 300);
+  33 |             return () => clearTimeout(timer);  react-hooks/set-state-in-effect
+
+D:\VSCode\Calculator\src\components\Layout\MainLayout.tsx
+  64:61  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\FinancialMode.tsx
+   73:17   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   96:69   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  112:126  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  113:120  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  114:117  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  119:125  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  120:127  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  121:121  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  126:127  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  127:121  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  128:122  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\InputField.tsx
+  8:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\ProgrammerMode.tsx
+  67:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\VSCode\Calculator\src\components\modes\StandardMode.tsx
+  164:17  error    'expression' is never reassigned. Use 'const' instead                                                                 prefer-const
+  165:17  error    'scope' is never reassigned. Use 'const' instead                                                                      prefer-const
+  173:17  error    'evalExpr' is never reassigned. Use 'const' instead                                                                   prefer-const
+  188:18  error    'err' is defined but never used                                                                                       @typescript-eslint/no-unused-vars
+  203:8   warning  React Hook useEffect has a missing dependency: 'handleButtonClick'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\VSCode\Calculator\src\components\modes\UnitConverterMode.tsx
+  27:18  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  40:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  60:26  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  70:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\VSCode\Calculator\src\components\modes\UnitConverterMode.tsx:70:9
+  68 |     // Set default units on category change
+  69 |     useEffect(() => {
+> 70 |         setFromUnit(units[activeCategory][0]);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  71 |         setToUnit(units[activeCategory][1]);
+  72 |     }, [activeCategory]);
+  73 |  react-hooks/set-state-in-effect
+  72:8   warning  React Hook useEffect has a missing dependency: 'units'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+
+✖ 30 problems (27 errors, 3 warnings)
+  4 errors and 0 warnings potentially fixable with the `--fix` option.
+
