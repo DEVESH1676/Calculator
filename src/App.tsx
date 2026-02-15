@@ -5,6 +5,7 @@ import GraphPanel from './components/GraphPanel';
 import MainLayout from './components/Layout/MainLayout';
 import LoadingSpinner from './components/LoadingSpinner';
 import { useCalculatorStore } from './store/useCalculatorStore';
+import GlobalToastProvider from './components/ui/GlobalToastProvider';
 
 // Lazy load other modes
 const FinancialMode = React.lazy(() => import('./components/modes/FinancialMode'));
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <GlobalToastProvider />
       <MainLayout>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
