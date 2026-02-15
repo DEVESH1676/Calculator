@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 
 export interface ChartData {
   year: number;
@@ -16,13 +16,13 @@ export interface ChartData {
   value: number;
 }
 
-interface Props {
+interface FinancialChartProps {
   data: ChartData[];
-  type: 'sip' | 'cagr';
+  type?: 'sip' | 'cagr' | 'emi';
 }
 
-const FinancialChart: React.FC<Props> = ({ data, type }) => {
-  const { theme } = useTheme();
+const FinancialChart: React.FC<FinancialChartProps> = ({ data, type }) => {
+  const { theme } = useThemeStore();
 
   return (
     <div className={`w-full h-64 mt-6 rounded-xl border ${theme.border} p-4 bg-black/20`}>

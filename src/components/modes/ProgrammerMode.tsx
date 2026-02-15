@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 import type { ThemeColors } from '../../theme/themes';
 
 interface InputRowProps {
@@ -12,9 +13,9 @@ interface InputRowProps {
 
 const InputRow: React.FC<InputRowProps> = ({ label, val, radix, onChange, theme }) => (
   <div
-    className={`p-3 rounded-xl border ${theme.border} ${theme.bg} bg-opacity-20 flex items-center gap-4`}
+    className={`p - 3 rounded - xl border ${theme.border} ${theme.bg} bg - opacity - 20 flex items - center gap - 4`}
   >
-    <span className={`w-10 font-bold ${theme.primary} text-sm`}>{label}</span>
+    <span className={`w - 10 font - bold ${theme.primary} text - sm`}>{label}</span>
     <input
       type="text"
       value={val}
@@ -25,7 +26,7 @@ const InputRow: React.FC<InputRowProps> = ({ label, val, radix, onChange, theme 
 );
 
 const ProgrammerMode: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
 
   // Base value stored as integer
   const [value, setValue] = useState<number>(0);
@@ -92,7 +93,7 @@ const ProgrammerMode: React.FC = () => {
   return (
     <div className="flex flex-col h-full w-full p-6 items-center overflow-y-auto custom-scrollbar">
       <div
-        className={`w-full max-w-2xl grid gap-4 p-6 rounded-3xl ${theme.glass} border ${theme.border}`}
+        className={`w - full max - w - 2xl grid gap - 4 p - 6 rounded - 3xl ${theme.glass} border ${theme.border} `}
       >
         <InputRow label="HEX" val={hex} radix={16} onChange={handleInputChange} theme={theme} />
         <InputRow label="DEC" val={dec} radix={10} onChange={handleInputChange} theme={theme} />
@@ -105,7 +106,7 @@ const ProgrammerMode: React.FC = () => {
           <button
             key={op}
             onClick={() => bitwiseOp(op)}
-            className={`p-4 rounded-xl font-bold transition-all ${theme.buttonBg} ${theme.text} hover:bg-opacity-80 hover:scale-105 shadow-lg border ${theme.border}`}
+            className={`p - 4 rounded - xl font - bold transition - all ${theme.buttonBg} ${theme.text} hover: bg - opacity - 80 hover: scale - 105 shadow - lg border ${theme.border} `}
           >
             {op}
           </button>

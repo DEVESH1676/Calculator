@@ -5,7 +5,7 @@ import { useCalculatorStore } from '../../store/useCalculatorStore';
 import type { HistoryItem } from '../../store/useCalculatorStore';
 import AIChatPanel from '../AIChatPanel';
 import { History, Minimize2, Bot, MoreHorizontal, ArrowUpRight } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 
 const Calculator: React.FC = () => {
   // Global State
@@ -15,16 +15,14 @@ const Calculator: React.FC = () => {
     setExpression,
     isDegree,
     setIsDegree,
-    history,
     addToHistory: addHistoryItem,
-    clearHistory: clearHistoryStore,
     isHistoryOpen,
     toggleHistory,
     isAiOpen,
     toggleAi,
   } = useCalculatorStore();
 
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
 
   // Local Calculator State
   const [input, setInput] = useState<string>('0');
@@ -53,21 +51,7 @@ const Calculator: React.FC = () => {
     toggleHistory(false);
   };
 
-  const handleClearHistory = () => {
-    clearHistoryStore();
-    localStorage.removeItem('calculator_history');
-  };
 
-  const handleExportHistory = () => {
-    const dataStr =
-      'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(history, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute('href', dataStr);
-    downloadAnchorNode.setAttribute('download', 'calculator_history.json');
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-  };
 
   const handleButtonClick = (value: string) => {
     if (error) {
@@ -375,15 +359,14 @@ const Calculator: React.FC = () => {
                 className={`
                                     relative overflow-hidden rounded-2xl text-xl font-medium transition-all duration-200
                                     active:scale-95 hover:shadow-lg flex items-center justify-center
-                                    ${
-                                      btn.type === 'equal'
-                                        ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
-                                        : btn.type === 'operator'
-                                          ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
-                                          : btn.type === 'function'
-                                            ? 'bg-white/5 text-white/60 hover:bg-white/10'
-                                            : 'bg-white/5 text-white hover:bg-white/10' /* number */
-                                    }
+                                    ${btn.type === 'equal'
+                    ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
+                    : btn.type === 'operator'
+                      ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
+                      : btn.type === 'function'
+                        ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                        : 'bg-white/5 text-white hover:bg-white/10' /* number */
+                  }
                                     ${btn.label === '0' ? 'col-span-1' : ''} 
                                     ${btn.val === 'sci' ? (isScientific ? 'text-[#00f5ff] bg-white/10' : '') : ''}
                                 `}
@@ -398,11 +381,8 @@ const Calculator: React.FC = () => {
       {/* Sidebars */}
       <HistorySidebar
         isOpen={isHistoryOpen}
-        history={history}
         onClose={() => toggleHistory(false)}
         onSelect={handleHistorySelect}
-        onClear={handleClearHistory}
-        onExport={handleExportHistory}
       />
 
       {isAiOpen && (

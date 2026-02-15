@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 
 export interface AmortizationItem {
   month: number;
@@ -8,12 +8,12 @@ export interface AmortizationItem {
   balance: string;
 }
 
-interface Props {
+interface AmortizationTableProps {
   schedule: AmortizationItem[];
 }
 
-const AmortizationTable: React.FC<Props> = ({ schedule }) => {
-  const { theme } = useTheme();
+const AmortizationTable: React.FC<AmortizationTableProps> = ({ schedule }) => {
+  const { theme } = useThemeStore();
 
   return (
     <div className={`w-full overflow-hidden rounded-xl border ${theme.border} mt-6`}>

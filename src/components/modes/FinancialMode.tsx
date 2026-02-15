@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Home, Coins, Calculator as CalculatorIcon } from 'lucide-react';
+import { Calculator as CalculatorIcon, Home, Coins } from 'lucide-react';
 import { math } from '../../utils/mathConfig';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 import { InputField } from './InputField';
 import AmortizationTable from '../financial/AmortizationTable';
 import FinancialChart from '../financial/FinancialChart';
@@ -9,13 +9,14 @@ import type { AmortizationItem } from '../financial/AmortizationTable';
 import type { ChartData } from '../financial/FinancialChart';
 
 const FinancialMode: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
   const [activeTool, setActiveTool] = useState<'emi' | 'sip' | 'cagr'>('emi');
   const [emiInputs, setEmiInputs] = useState({ principal: '', rate: '', tenure: '' });
   const [sipInputs, setSipInputs] = useState({ investment: '', rate: '', years: '' });
   const [cagrInputs, setCagrInputs] = useState({ beginningValue: '', endingValue: '', years: '' });
   const [showDetails, setShowDetails] = useState(false);
 
+  // ... (Calculation functions remain the same) ...
   const calculateEMI = () => {
     const { principal, rate, tenure } = emiInputs;
     if (!principal || !rate || !tenure) return null;
@@ -209,11 +210,10 @@ const FinancialMode: React.FC = () => {
                 setActiveTool(tool.id as 'emi' | 'sip' | 'cagr');
                 setShowDetails(false);
               }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive
-                  ? `${theme.accent} text-white shadow-md`
-                  : `${theme.text} opacity-60 hover:opacity-100`
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive
+                ? `${theme.accent} text-white shadow-md`
+                : `${theme.text} opacity-60 hover:opacity-100`
+                }`}
             >
               <Icon size={16} />
               <span>{tool.label}</span>
@@ -230,29 +230,26 @@ const FinancialMode: React.FC = () => {
           {activeTool === 'emi' && (
             <>
               <InputField
-                theme={theme}
                 label="Principal Amount (P)"
                 value={emiInputs.principal}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmiInputs({ ...emiInputs, principal: e.target.value })
+                onChange={(val) =>
+                  setEmiInputs({ ...emiInputs, principal: val })
                 }
                 placeholder="e.g. 100000"
               />
               <InputField
-                theme={theme}
                 label="Interest Rate (R %)"
                 value={emiInputs.rate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmiInputs({ ...emiInputs, rate: e.target.value })
+                onChange={(val) =>
+                  setEmiInputs({ ...emiInputs, rate: val })
                 }
                 placeholder="e.g. 8.5"
               />
               <InputField
-                theme={theme}
                 label="Tenure (Years)"
                 value={emiInputs.tenure}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmiInputs({ ...emiInputs, tenure: e.target.value })
+                onChange={(val) =>
+                  setEmiInputs({ ...emiInputs, tenure: val })
                 }
                 placeholder="e.g. 5"
               />
@@ -261,29 +258,26 @@ const FinancialMode: React.FC = () => {
           {activeTool === 'sip' && (
             <>
               <InputField
-                theme={theme}
                 label="Monthly Investment"
                 value={sipInputs.investment}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSipInputs({ ...sipInputs, investment: e.target.value })
+                onChange={(val) =>
+                  setSipInputs({ ...sipInputs, investment: val })
                 }
                 placeholder="e.g. 5000"
               />
               <InputField
-                theme={theme}
                 label="Expected Return Rate (R %)"
                 value={sipInputs.rate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSipInputs({ ...sipInputs, rate: e.target.value })
+                onChange={(val) =>
+                  setSipInputs({ ...sipInputs, rate: val })
                 }
                 placeholder="e.g. 12"
               />
               <InputField
-                theme={theme}
                 label="Time Period (Years)"
                 value={sipInputs.years}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSipInputs({ ...sipInputs, years: e.target.value })
+                onChange={(val) =>
+                  setSipInputs({ ...sipInputs, years: val })
                 }
                 placeholder="e.g. 10"
               />
@@ -292,29 +286,26 @@ const FinancialMode: React.FC = () => {
           {activeTool === 'cagr' && (
             <>
               <InputField
-                theme={theme}
                 label="Beginning Value"
                 value={cagrInputs.beginningValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setCagrInputs({ ...cagrInputs, beginningValue: e.target.value })
+                onChange={(val) =>
+                  setCagrInputs({ ...cagrInputs, beginningValue: val })
                 }
                 placeholder="e.g. 1000"
               />
               <InputField
-                theme={theme}
                 label="Ending Value"
                 value={cagrInputs.endingValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setCagrInputs({ ...cagrInputs, endingValue: e.target.value })
+                onChange={(val) =>
+                  setCagrInputs({ ...cagrInputs, endingValue: val })
                 }
                 placeholder="e.g. 2000"
               />
               <InputField
-                theme={theme}
                 label="Time Period (Years)"
                 value={cagrInputs.years}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setCagrInputs({ ...cagrInputs, years: e.target.value })
+                onChange={(val) =>
+                  setCagrInputs({ ...cagrInputs, years: val })
                 }
                 placeholder="e.g. 5"
               />

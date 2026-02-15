@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Scale, Ruler, Thermometer, DollarSign, ArrowRightLeft, RefreshCw } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore } from '../../store/useThemeStore';
 import { math } from '../../utils/mathConfig';
 import { CurrencyService } from '../../services/CurrencyService';
 
 const UnitConverterMode: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
 
   const categories = [
     { id: 'Length', icon: Ruler },
@@ -147,11 +147,10 @@ const UnitConverterMode: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-                isActive
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${isActive
                   ? `${theme.accent} text-white shadow-md`
                   : `${theme.text} opacity-60 hover:opacity-100`
-              }`}
+                }`}
             >
               <Icon size={16} />
               <span>{cat.id}</span>

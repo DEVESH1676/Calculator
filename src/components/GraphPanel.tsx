@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useThemeStore } from '../store/useThemeStore';
 import { useCalculatorStore } from '../store/useCalculatorStore';
 import {
   type Dimensions,
@@ -14,7 +14,7 @@ import {
 import { Plus, Minus, RotateCcw, Target } from 'lucide-react';
 
 const GraphPanel: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme } = useThemeStore();
   const { history } = useCalculatorStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

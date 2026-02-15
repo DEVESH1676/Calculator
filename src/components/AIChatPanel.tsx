@@ -1,5 +1,8 @@
+
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Send } from 'lucide-react';
+import { Sparkles, Send, X, MessageSquare } from 'lucide-react';
+import { useThemeStore } from '../store/useThemeStore';
+import { useCalculatorStore } from '../store/useCalculatorStore';
 
 interface AIChatMessage {
   id: string;
@@ -25,7 +28,7 @@ const calculateResult = (text: string): AIChatMessage => {
     return {
       id: Date.now().toString(),
       sender: 'bot',
-      text: `${percent}% of ${number} is ${result.toFixed(2)}`,
+      text: `${percent}% of ${number} is ${result.toFixed(2)} `,
       formula: `${number} * (${percent}/100)`,
       explanation: `To find ${percent}% of ${number}, multiply ${number} by ${percent / 100}.`,
     };
@@ -46,9 +49,9 @@ const calculateResult = (text: string): AIChatMessage => {
     return {
       id: Date.now().toString(),
       sender: 'bot',
-      text: `Compound interest on ${initial.toLocaleString()} at ${rate}% for ${years} years is ${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
-      formula: `${initial} * (1 + ${rate}/100)^${years}`,
-      explanation: `Using formula A = P(1 + r/n)^nt. Principal=${initial}, Rate=${rate}%, Time=${years} years.`,
+      text: `Compound interest on ${initial.toLocaleString()} at ${rate}% for ${years} years is ${result.toLocaleString(undefined, { maximumFractionDigits: 2 })} `,
+      formula: `${initial} * (1 + ${rate}/100)^ ${years} `,
+      explanation: `Using formula A = P(1 + r / n) ^ nt.Principal=${initial}, Rate = ${rate}%, Time = ${years} years.`,
     };
   }
 
@@ -139,11 +142,10 @@ const AIChatPanel: React.FC = () => {
             className={`flex flex-col ${message.sender === 'user' ? 'items-end' : 'items-start'}`}
           >
             <div
-              className={`p-3 rounded-2xl max-w-[85%] text-sm ${
-                message.sender === 'user'
-                  ? 'bg-[#00f5ff]/20 text-white rounded-tr-sm'
-                  : 'bg-white/10 text-white/90 rounded-tl-sm border border-white/5'
-              }`}
+              className={`p-3 rounded-2xl max-w-[85%] text-sm ${message.sender === 'user'
+                ? 'bg-[#00f5ff]/20 text-white rounded-tr-sm'
+                : 'bg-white/10 text-white/90 rounded-tl-sm border border-white/5'
+                }`}
             >
               {message.isTyping ? (
                 <div className="flex space-x-1 h-5 items-center px-2">
