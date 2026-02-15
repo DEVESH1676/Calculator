@@ -39,8 +39,8 @@ const CalculatorButton: React.FC<CalculatorButtonProps> = ({
                 return `bg-white/5 text-white/60 hover:bg-white/10 ${theme.text}`;
             case 'scientific':
                 return isActive
-                    ? 'bg-[#00f5ff]/20 text-[#00f5ff] border border-[#00f5ff]/20'
-                    : `bg-[#0f2027]/50 border border-[#00f5ff]/10 text-[#00f5ff] hover:bg-[#00f5ff]/10 ${theme.text}`;
+                    ? `${theme.accent} text-white shadow-md border-transparent`
+                    : `${theme.buttonBg} ${theme.primary} border ${theme.border} hover:bg-white/20`;
             case 'number':
             default:
                 return `bg-white/5 text-white hover:bg-white/10 ${theme.text}`;

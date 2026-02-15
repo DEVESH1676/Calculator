@@ -35,7 +35,8 @@ const TabNavigation: React.FC = () => {
     const activeMode = getActiveMode(location.pathname);
 
     return (
-        <div className="flex bg-black/5 p-1 rounded-xl overflow-x-auto custom-scrollbar gap-1">
+    return (
+        <div className={`flex relative p-1 rounded-2xl ${theme.glass} border ${theme.border} gap-1 shadow-inner`}>
             {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeMode === tab.id;
@@ -44,26 +45,27 @@ const TabNavigation: React.FC = () => {
                         key={tab.id}
                         onClick={() => navigate(tab.path)}
                         className={cn(
-                            'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative',
-                            isActive
-                                ? `${theme.accent} text-white shadow-lg`
-                                : `${theme.text} hover:bg-black/5 opacity-70 hover:opacity-100`
+                            'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors duration-200 relative z-10',
+                            isActive ? 'text-white' : `${theme.text} hover:bg-black/5 dark:hover:bg-white/5 opacity-70 hover:opacity-100`
                         )}
                     >
                         {isActive && (
                             <motion.div
                                 layoutId="active-tab"
-                                className="absolute inset-0 bg-white/10 rounded-lg"
+                                className={`absolute inset-0 ${theme.accent} rounded-xl shadow-md`}
                                 initial={false}
-                                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                             />
                         )}
-                        <Icon size={16} className="relative z-10" />
-                        <span className="hidden sm:inline relative z-10">{tab.label}</span>
+                        <span className="relative z-10 flex items-center gap-2">
+                            <Icon size={16} />
+                            <span className="hidden sm:inline">{tab.label}</span>
+                        </span>
                     </button>
                 );
             })}
         </div>
+    );
     );
 };
 
