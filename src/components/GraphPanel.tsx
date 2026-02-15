@@ -33,6 +33,12 @@ const GraphPanel: React.FC = () => {
   const isHovering = useRef(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
 
+  // Analysis Data (Roots/Extrema)
+  const [analysisPoints, setAnalysisPoints] = useState<{ roots: Point[]; extrema: Point[] }>({
+    roots: [],
+    extrema: [],
+  });
+
   // Worker
   const workerRef = useRef<Worker | null>(null);
 
