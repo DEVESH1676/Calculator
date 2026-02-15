@@ -14,18 +14,16 @@ import CalculatorButton from '../shared/CalculatorButton';
 
 const StandardMode: React.FC = () => {
   // Global State
-  const {
-    isGraphOpen,
-    toggleGraph,
-    setExpression,
-    isDegree,
-    setIsDegree,
-    // addToHistory: addHistoryItem, // Removed in favor of persistent history
-    isHistoryOpen,
-    toggleHistory,
-    isAiOpen,
-    toggleAi,
-  } = useCalculatorStore();
+  // Global State with granular selectors to prevent re-renders on 'expression' change
+  const isGraphOpen = useCalculatorStore((state) => state.isGraphOpen);
+  const toggleGraph = useCalculatorStore((state) => state.toggleGraph);
+  const setExpression = useCalculatorStore((state) => state.setExpression);
+  const isDegree = useCalculatorStore((state) => state.isDegree);
+  const setIsDegree = useCalculatorStore((state) => state.setIsDegree);
+  const isHistoryOpen = useCalculatorStore((state) => state.isHistoryOpen);
+  const toggleHistory = useCalculatorStore((state) => state.toggleHistory);
+  const isAiOpen = useCalculatorStore((state) => state.isAiOpen);
+  const toggleAi = useCalculatorStore((state) => state.toggleAi);
 
   const { theme } = useThemeStore();
   const { addToast } = useToastStore();
