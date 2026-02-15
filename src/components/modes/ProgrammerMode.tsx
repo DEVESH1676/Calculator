@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
+import type { ThemeColors } from '../../theme/themes';
 
 interface InputRowProps {
   label: string;
   val: string;
   radix: number;
   onChange: (val: string, radix: number) => void;
-  theme: any;
+  theme: ThemeColors;
 }
 
 const InputRow: React.FC<InputRowProps> = ({ label, val, radix, onChange, theme }) => (
