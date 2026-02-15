@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from '../components/Layout/MainLayout';
 import { useCalculatorStore } from '../store/useCalculatorStore';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -11,7 +11,7 @@ const FinancialMode = lazy(() => import('../modules/financial/FinancialModule'))
 const UnitConverterMode = lazy(() => import('../modules/unit/UnitModule'));
 const ProgrammerMode = lazy(() => import('../modules/programmer/ProgrammerModule'));
 const GraphPanel = lazy(() => import('../modules/graph/GraphModule'));
-const AIChatPanel = lazy(() => import('../modules/ai/AIModule'));
+// const AIChatPanel = lazy(() => import('../modules/ai/AIModule')); // Not used in routes yet
 
 // Extracted component to prevent recreation on re-renders
 const StandardWithGraph = () => {

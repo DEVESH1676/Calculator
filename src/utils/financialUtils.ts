@@ -1,6 +1,6 @@
 import { math } from './mathConfig';
-import type { AmortizationItem } from '../components/financial/AmortizationTable';
-import type { ChartData } from '../components/financial/FinancialChart';
+import type { AmortizationItem } from '../modules/financial/components/AmortizationTable';
+import type { ChartData } from '../modules/financial/components/FinancialChart';
 
 export const calculateEMI = (principal: string, rate: string, tenure: string) => {
     if (!principal || !rate || !tenure) return null;
