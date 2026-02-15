@@ -60,8 +60,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 key={tab.id}
                 onClick={() => navigate(tab.path)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${isActive
-                    ? `${theme.accent} text-white shadow-lg shadow-${theme.accent}/20`
-                    : `${theme.text} hover:bg-black/5 opacity-70 hover:opacity-100`
+                  ? `${theme.accent} text-white shadow-lg shadow-${theme.accent}/20`
+                  : `${theme.text} hover:bg-black/5 opacity-70 hover:opacity-100`
                   }`}
               >
                 <Icon size={16} />
