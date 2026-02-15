@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Calculator as CalculatorIcon, Home, Coins } from 'lucide-react';
-import { math } from '../../utils/mathConfig';
+
 import { useThemeStore } from '../../store/useThemeStore';
 import { InputField } from './InputField';
 import AmortizationTable from '../financial/AmortizationTable';

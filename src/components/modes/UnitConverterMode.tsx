@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Scale, Ruler, Thermometer, DollarSign, ArrowRightLeft, RefreshCw } from 'lucide-react';
 import { useThemeStore } from '../../store/useThemeStore';
-import { math } from '../../utils/mathConfig';
+
 import { CurrencyService } from '../../services/CurrencyService';
 import { convertUnit } from '../../utils/unitUtils';
 
@@ -33,14 +33,8 @@ const UnitConverterMode: React.FC = () => {
   };
 
   // Unit Mapping for mathjs
-  const unitMap: Record<string, string> = {
-    Celsius: 'degC',
-    Fahrenheit: 'degF',
-    Kelvin: 'K',
-    mile: 'mi', // mathjs uses 'mi' for dates? No, 'mi' or 'mile' usually works. 'mi' is safer.
-  };
+  // Moved to utils/unitUtils.ts
 
-  const getMathUnit = (u: string) => unitMap[u] || u;
 
   useEffect(() => {
     if (activeCategory === 'Currency') {
