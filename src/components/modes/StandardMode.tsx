@@ -170,7 +170,7 @@ const Calculator: React.FC = () => {
       const expression = input;
 
       // Replacements for mathjs
-      let evalInput = expression
+      const evalInput = expression
         .replace(/×/g, '*')
         .replace(/÷/g, '/')
         .replace(/−/g, '-')
@@ -180,12 +180,12 @@ const Calculator: React.FC = () => {
         .replace(/log\(/g, 'log10(')
         .replace(/ln\(/g, 'log(');
 
-      const scope: any = {};
+      const scope: Record<string, unknown> = {};
       if (isDegree) {
         // Ensure trig functions expect degrees if in Degree mode
-        scope.sin = (x: any) => math.sin(math.unit(x, 'deg'));
-        scope.cos = (x: any) => math.cos(math.unit(x, 'deg'));
-        scope.tan = (x: any) => math.tan(math.unit(x, 'deg'));
+        scope.sin = (x: unknown) => math.sin(math.unit(x as number, 'deg'));
+        scope.cos = (x: unknown) => math.cos(math.unit(x as number, 'deg'));
+        scope.tan = (x: unknown) => math.tan(math.unit(x as number, 'deg'));
       }
 
       const res = math.evaluate(evalInput, scope);
@@ -222,7 +222,7 @@ const Calculator: React.FC = () => {
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [input, lastCalculated, error, isScientific, isDegree, isGraphOpen]);
+  }, [input, lastCalculated, error, isScientific, isDegree, isGraphOpen, handleKeyDown]);
 
   const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
@@ -362,15 +362,14 @@ const Calculator: React.FC = () => {
                 className={`
                                     relative overflow-hidden rounded-2xl text-xl font-medium transition-all duration-200
                                     active:scale-95 hover:shadow-lg flex items-center justify-center
-                                    ${
-                                      btn.type === 'equal'
-                                        ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
-                                        : btn.type === 'operator'
-                                          ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
-                                          : btn.type === 'function'
-                                            ? 'bg-white/5 text-white/60 hover:bg-white/10'
-                                            : 'bg-white/5 text-white hover:bg-white/10' /* number */
-                                    }
+                                    ${btn.type === 'equal'
+                    ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
+                    : btn.type === 'operator'
+                      ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
+                      : btn.type === 'function'
+                        ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                        : 'bg-white/5 text-white hover:bg-white/10' /* number */
+                  }
                                     ${btn.label === '0' ? 'col-span-1' : ''} 
                                     ${btn.val === 'sci' ? (isScientific ? 'text-[#00f5ff] bg-white/10' : '') : ''}
                                 `}
@@ -410,7 +409,7 @@ const Calculator: React.FC = () => {
                     to {
                         transform: scale(4);
                         opacity: 0;
-                    }
+                        }
                 }
              `}</style>
     </div>
