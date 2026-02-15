@@ -209,10 +209,11 @@ const FinancialMode: React.FC = () => {
                 setActiveTool(tool.id as 'emi' | 'sip' | 'cagr');
                 setShowDetails(false);
               }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive
-                ? `${theme.accent} text-white shadow-md`
-                : `${theme.text} opacity-60 hover:opacity-100`
-                }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                isActive
+                  ? `${theme.accent} text-white shadow-md`
+                  : `${theme.text} opacity-60 hover:opacity-100`
+              }`}
             >
               <Icon size={16} />
               <span>{tool.label}</span>
