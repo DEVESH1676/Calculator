@@ -1,4 +1,4 @@
-export type Theme = 'light' | 'dark' | 'neon' | 'minimal';
+export type Theme = 'light' | 'dark';
 
 export interface ThemeColors {
   bg: string;
@@ -37,29 +37,5 @@ export const themes: Record<Theme, ThemeColors> = {
     buttonText: 'text-white',
     buttonHover: 'hover:bg-white/20',
     displayBg: 'bg-black/20',
-  },
-  neon: {
-    bg: 'bg-black',
-    text: 'text-[#ff00ff]',
-    primary: 'text-[#00f5ff]',
-    accent: 'bg-[#00f5ff]',
-    glass: 'bg-black/80 backdrop-blur-md border border-[#00f5ff]/30',
-    border: 'border-[#ff00ff]/30',
-    buttonBg: 'bg-[#1a1a1a]',
-    buttonText: 'text-[#00f5ff]',
-    buttonHover: 'hover:bg-[#333] hover:shadow-[0_0_10px_#00f5ff]',
-    displayBg: 'bg-[#000]',
-  },
-  minimal: {
-    bg: 'bg-[#f5f5f5]',
-    text: 'text-[#333]',
-    primary: 'text-[#000]',
-    accent: 'bg-[#333]',
-    glass: 'bg-white border border-gray-200 shadow-sm',
-    border: 'border-gray-200',
-    buttonBg: 'bg-gray-100',
-    buttonText: 'text-[#333]',
-    buttonHover: 'hover:bg-gray-200',
-    displayBg: 'bg-transparent',
   },
 };
