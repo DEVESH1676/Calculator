@@ -15,7 +15,8 @@
 - [x] Install dependencies: `react-router-dom`, `zustand`, `framer-motion`, `clsx`, `tailwind-merge`, `lucide-react`
 - [x] Create `ThemeProvider` and Theme Store (Zustand) for Light/Dark/Neon/Minimal modes
 - [x] Create MainLayout and standard UI components
-- [x] Configure Routingh `GlobalToastProvider` and `Background`
+- [x] Configure Routing
+- [ ] Create `App` layout component with `GlobalToastProvider` and `Background`
 - [ ] Create reusable `CalculatorButton` component with variants
 - [ ] Create `InputDisplay` component with animation support
 - [ ] Create `TabNavigation` component for switching modules
