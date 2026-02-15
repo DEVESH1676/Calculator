@@ -10,6 +10,9 @@ export const calculateEMI = (principal: string, rate: string, tenure: string) =>
         const R = math.bignumber(rate).div(100); // Annual rate
         const T = math.bignumber(tenure);
 
+        // Security Patch: Prevent division by zero and illogical values
+        if (T.equals(0) || R.equals(0)) return null;
+
         const r = R.div(12); // Monthly rate
         const n = T.mul(12); // Months
 
