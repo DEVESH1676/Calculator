@@ -110,7 +110,9 @@ const UnitConverterMode: React.FC = () => {
         return num.toFixed(6).replace(/\.?0+$/, '');
       } else {
         // BigNumber
-        return (num as unknown as { toFixed: (n: number) => string }).toFixed(6).replace(/\.?0+$/, '');
+        return (num as unknown as { toFixed: (n: number) => string })
+          .toFixed(6)
+          .replace(/\.?0+$/, '');
       }
     } catch {
       // console.error("Conversion Warning:", e);
@@ -145,10 +147,11 @@ const UnitConverterMode: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${isActive
-                ? `${theme.accent} text-white shadow-md`
-                : `${theme.text} opacity-60 hover:opacity-100`
-                }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+                isActive
+                  ? `${theme.accent} text-white shadow-md`
+                  : `${theme.text} opacity-60 hover:opacity-100`
+              }`}
             >
               <Icon size={16} />
               <span>{cat.id}</span>
