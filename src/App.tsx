@@ -12,10 +12,11 @@ const FinancialMode = React.lazy(() => import('./components/modes/FinancialMode'
 const UnitConverterMode = React.lazy(() => import('./components/modes/UnitConverterMode'));
 const ProgrammerMode = React.lazy(() => import('./components/modes/ProgrammerMode'));
 
-function App() {
-  const { isGraphOpen } = useCalculatorStore();
+// Extracted component to prevent recreation on re-renders
+const StandardWithGraph = () => {
+  const isGraphOpen = useCalculatorStore((state) => state.isGraphOpen);
 
-  const StandardWithGraph = () => (
+  return (
     <div className="flex h-full w-full relative">
       <div
         className={`flex justify-center items-center transition-all duration-500 ease-in-out ${isGraphOpen ? 'w-1/2' : 'w-full'} h-full`}
@@ -30,6 +31,12 @@ function App() {
       </div>
     </div>
   );
+};
+
+function App() {
+  // App doesn't need to subscribe to store anymore if StandardWithGraph handles its own layout logic
+  // But wait, StandardWithGraph uses isGraphOpen.
+  // The Route renders StandardWithGraph.
 
   return (
     <Router>
@@ -47,5 +54,7 @@ function App() {
     </Router>
   );
 }
+
+
 
 export default App;
