@@ -1,11 +1,11 @@
-import React from 'react';
+import type { ThemeColors } from '../../theme/themes';
 
 interface InputFieldProps {
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  theme: any; // Using any for theme to match existing usage, or could be typed
+  theme: ThemeColors;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
