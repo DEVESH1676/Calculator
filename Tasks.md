@@ -48,36 +48,36 @@
 
 ## 6. Financial Toolkit Module
 
-- [ ] Create `modules/financial/FinancialModule.tsx` layout with sub-tabs (EMI, SIP, CAGR)
-- [ ] Implement `Decimal.js` wrapper for financial precision
-- [ ] **EMI Calculator**:
-  - [ ] Create Input Form (Amount, Rate, Tenure)
-  - [ ] Implement EMI calculation logic
-  - [ ] Create Amortization Table component (virtualized list)
-  - [ ] Write unit tests for EMI formulas
-- [ ] **SIP Calculator**:
-  - [ ] Create Input Form (Monthly Investment, Rate, Time)
-  - [ ] Implement Future Value logic
-  - [ ] Create Growth Chart wrapper (using lightweight chart library or SVG)
-  - [ ] Write unit tests for SIP formulas
-- [ ] **CAGR Calculator**:
-  - [ ] Implement CAGR logic and UI
-  - [ ] Write unit tests for CAGR
+- [x] Create `modules/financial/FinancialModule.tsx` layout with sub-tabs (EMI, SIP, CAGR)
+- [x] Implement `Decimal.js` wrapper for financial precision (Used mathjs)
+- [x] **EMI Calculator**:
+  - [x] Create Input Form (Amount, Rate, Tenure)
+  - [x] Implement EMI calculation logic
+  - [x] Create Amortization Table component (virtualized list)
+  - [x] Write unit tests for EMI formulas
+- [x] **SIP Calculator**:
+  - [x] Create Input Form (Monthly Investment, Rate, Time)
+  - [x] Implement Future Value logic
+  - [x] Create Growth Chart wrapper (using lightweight chart library or SVG)
+  - [x] Write unit tests for SIP formulas
+- [x] **CAGR Calculator**:
+  - [x] Implement CAGR logic and UI
+  - [x] Write unit tests for CAGR
 
 ## 7. Programmer Mode Module
 
-- [ ] Create `modules/programmer/ProgrammerCalculator.tsx` layout
-- [ ] Implement Base Conversion logic (Bin, Oct, Dec, Hex)
-- [ ] Implement Bitwise Operations (AND, OR, XOR, NOT, Shifts)
+- [x] Create `modules/programmer/ProgrammerCalculator.tsx` layout
+- [x] Implement Base Conversion logic (Bin, Oct, Dec, Hex)
+- [x] Implement Bitwise Operations (AND, OR, XOR, NOT, Shifts)
 - [ ] Implement Word Size toggles (8, 16, 32, 64-bit)
 - [ ] Write unit tests for bitwise logic
 
 ## 8. Unit Converter Module
 
-- [ ] Create `modules/unit/UnitConverter.tsx` layout
-- [ ] Create Unit Conversion Service/Utilities (Length, Weight, Temp)
-- [ ] Implement Currency Conversion UI connected to `CurrencyService`
-- [ ] Add swap animation for inputs
+- [x] Create `modules/unit/UnitConverter.tsx` layout
+- [x] Create Unit Conversion Service/Utilities (Length, Weight, Temp)
+- [x] Implement Currency Conversion UI connected to `CurrencyService`
+- [x] Add swap animation for inputs
 - [ ] Write unit tests for unit conversions
 
 ## 9. Graphing Engine
