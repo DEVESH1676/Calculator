@@ -87,7 +87,7 @@ export const generatePoints = (
         // Determine if we should break the line (NaN or Infinity)
         points.push({ x, y: NaN });
       }
-    } catch (e) {
+    } catch {
       // Expression might be invalid for certain X (e.g. log(-1))
       points.push({ x, y: NaN });
     }
@@ -174,7 +174,9 @@ export const findExtrema = (
   try {
     const scope = { x: start };
     yPrev = code.evaluate(scope);
-  } catch {}
+  } catch {
+    // ignore
+  }
 
   for (let x = start + step; x <= end; x += step) {
     try {

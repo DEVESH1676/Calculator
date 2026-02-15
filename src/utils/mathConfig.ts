@@ -17,7 +17,7 @@ export const math = create(all, config);
  * Formats a mathjs result (BigNumber, Unit, etc.) into a clean string.
  * Removes unnecessary trailing zeros and handles scientific notation for very large/small numbers.
  */
-export const formatResult = (value: any): string => {
+export const formatResult = (value: unknown): string => {
   if (value === null || value === undefined) return '';
 
   // math.format handles BigNumbers nicely with the configured precision
