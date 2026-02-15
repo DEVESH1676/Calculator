@@ -7,6 +7,7 @@ import AmortizationTable from '../financial/AmortizationTable';
 import FinancialChart from '../financial/FinancialChart';
 import type { AmortizationItem } from '../financial/AmortizationTable';
 import type { ChartData } from '../financial/FinancialChart';
+import { calculateEMI, calculateSIP, calculateCAGR } from '../../utils/financialUtils';
 
 const FinancialMode: React.FC = () => {
   const { theme } = useThemeStore();
@@ -15,8 +16,6 @@ const FinancialMode: React.FC = () => {
   const [sipInputs, setSipInputs] = useState({ investment: '', rate: '', years: '' });
   const [cagrInputs, setCagrInputs] = useState({ beginningValue: '', endingValue: '', years: '' });
   const [showDetails, setShowDetails] = useState(false);
-
-  import { calculateEMI, calculateSIP, calculateCAGR } from '../../utils/financialUtils';
 
   // ... (component code)
   // The local functions calculateEMI, calculateSIP, calculateCAGR are removed and replaced by imports.
@@ -46,13 +45,13 @@ const FinancialMode: React.FC = () => {
   let result: FinancialResult | null = null;
   switch (activeTool) {
     case 'emi':
-      result = calculateEMI();
+      result = calculateEMI(emiInputs.principal, emiInputs.rate, emiInputs.tenure);
       break;
     case 'sip':
-      result = calculateSIP();
+      result = calculateSIP(sipInputs.investment, sipInputs.rate, sipInputs.years);
       break;
     case 'cagr':
-      result = calculateCAGR();
+      result = calculateCAGR(cagrInputs.beginningValue, cagrInputs.endingValue, cagrInputs.years);
       break;
   }
 
