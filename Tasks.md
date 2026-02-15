@@ -82,19 +82,19 @@
 
 ## 9. Graphing Engine
 
-- [ ] Create `workers/graphWorker.ts` for background computation
-- [ ] Create `modules/graph/GraphCalculator.tsx` layout with Canvas
-- [ ] Implement function parser for graphing (y = f(x))
-- [ ] Implement Pan/Zoom logic on Canvas
-- [ ] Integrate Worker with UI to render points
-- [ ] Write unit tests for graph coordinator
+- [x] Create `workers/graphWorker.ts` for background computation
+- [x] Create `modules/graph/GraphCalculator.tsx` layout with Canvas (`GraphPanel`)
+- [x] Implement function parser for graphing (y = f(x))
+- [x] Implement Pan/Zoom logic on Canvas
+- [x] Integrate Worker with UI to render points (Analysis via Worker)
+- [x] Write unit tests for graph coordinator
 
 ## 10. AI/Natural Input Mode
 
-- [ ] Create `modules/ai/NaturalInput.tsx` layout
-- [ ] Implement Regex-based Intent Parser (detect "EMI", "50% of", units)
-- [ ] Map intents to specific module functions
-- [ ] Display step-by-step explanation for parsed result
+- [x] Create `modules/ai/NaturalInput.tsx` layout (`AIChatPanel`)
+- [x] Implement Regex-based Intent Parser (detect "EMI", "50% of", units)
+- [x] Map intents to specific module functions
+- [x] Display step-by-step explanation for parsed result
 - [ ] Write unit tests for intent parser
 
 ## 11. Final Polish & Performance
