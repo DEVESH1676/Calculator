@@ -68,6 +68,22 @@ export const calculateSIP = (investment: string, rate: string, years: string) =>
         const R = math.bignumber(rate).div(100);
         const T = math.bignumber(years);
 
+        // Security Patch: Prevent invalid logical inputs
+        if (T.lessThanOrEqualTo(0) || P.lessThan(0)) return null;
+
+        // Handle 0% interest case (Linear growth)
+        if (R.equals(0)) {
+            const n = T.mul(12);
+            const invested = P.mul(n);
+            // Return early with linear data
+            return {
+                totalInterest: 0,
+                totalAmount: invested.toNumber(),
+                invested: invested.toNumber(),
+                chartData: [] // Simplified for now or could generate linear chart
+            };
+        }
+
         const i = R.div(12); // Monthly rate
         const n = T.mul(12); // Months
 
