@@ -74,7 +74,7 @@ const GraphPanel: React.FC = () => {
     const extrema = findExtrema(expression, start, end, 0.1);
 
     setAnalysisPoints({ roots, extrema });
-  }, [expression, showAnalysis, stateRef.current.offsetX, stateRef.current.scale]); // Re-run on move? Expensive.
+  }, [expression, showAnalysis]); // Re-run on move? Expensive.
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
