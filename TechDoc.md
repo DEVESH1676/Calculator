@@ -80,22 +80,22 @@ Or server-backed app
 High-level structure:
 
 /src
-  /app
-  /modules
-    /standard
-    /scientific
-    /financial
-    /unit
-    /programmer
-    /graph
-    /ai
-  /components
-  /hooks
-  /store
-  /services
-  /utils
-  /types
-  /workers
+/app
+/modules
+/standard
+/scientific
+/financial
+/unit
+/programmer
+/graph
+/ai
+/components
+/hooks
+/store
+/services
+/utils
+/types
+/workers
 3️⃣ Component Architecture
 🔹 Root Level
 
@@ -170,24 +170,25 @@ Avoid global calculation state.
 If persistence is enabled:
 
 🗂 Tables
+
 1. calculation_history
-id: string (uuid)
-module: string
-expression: string
-result: string
-metadata: JSON
-created_at: timestamp
+   id: string (uuid)
+   module: string
+   expression: string
+   result: string
+   metadata: JSON
+   created_at: timestamp
 2. currency_cache
-id: "latest"
-rates: JSON
-base_currency: string
-last_updated: timestamp
+   id: "latest"
+   rates: JSON
+   base_currency: string
+   last_updated: timestamp
 3. settings
-id: "global"
-theme: string
-rad_deg: string
-precision: number
-6️⃣ API Endpoints
+   id: "global"
+   theme: string
+   rad_deg: string
+   precision: number
+   6️⃣ API Endpoints
 
 For MVP:
 

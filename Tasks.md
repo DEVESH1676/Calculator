@@ -1,7 +1,7 @@
-
 # ModCalc - Tasks
 
 ## 1. Project Initialization & Infrastructure
+
 - [ ] Initialize Vite project with React and TypeScript
 - [ ] Configure Tailwind CSS with custom theme variables (colors, fonts)
 - [ ] Install and configure ESLint and Prettier for strict TypeScript
@@ -10,6 +10,7 @@
 - [ ] Initialize Git repository
 
 ## 2. Core Architecture & UI Foundation
+
 - [ ] Create directory structure (modules, components, hooks, services, workers)
 - [ ] Install dependencies: `react-router-dom`, `zustand`, `framer-motion`, `clsx`, `tailwind-merge`, `lucide-react`
 - [ ] Create `ThemeProvider` and Theme Store (Zustand) for Light/Dark/Neon/Minimal modes
@@ -20,6 +21,7 @@
 - [ ] Set up React Router with lazy loading for modules
 
 ## 3. Storage & Services Layer
+
 - [ ] Install `dexie` and `decimal.js`
 - [ ] Create `db/index.ts` configuration for IndexedDB (History, Settings, Currency Cache)
 - [ ] Create `useHistory` hook for saving/retrieving calculation history
@@ -27,6 +29,7 @@
 - [ ] Create `SettingsStore` (Zustand) for global preferences (precision, radians/degrees)
 
 ## 4. Standard Calculator Module
+
 - [ ] Create `modules/standard/StandardCalculator.tsx` layout
 - [ ] Implement basic arithmetic logic (add, subtract, multiply, divide)
 - [ ] Implement keyboard support for standard operations
@@ -34,6 +37,7 @@
 - [ ] Write unit tests for standard math operations
 
 ## 5. Scientific Calculator Module
+
 - [ ] Create `modules/scientific/ScientificCalculator.tsx` layout
 - [ ] Implement trigonometric functions (sin, cos, tan) with Rad/Deg toggle
 - [ ] Implement logarithmic functions (log, ln)
@@ -41,6 +45,7 @@
 - [ ] Write unit tests for scientific functions
 
 ## 6. Financial Toolkit Module
+
 - [ ] Create `modules/financial/FinancialModule.tsx` layout with sub-tabs (EMI, SIP, CAGR)
 - [ ] Implement `Decimal.js` wrapper for financial precision
 - [ ] **EMI Calculator**:
@@ -58,6 +63,7 @@
   - [ ] Write unit tests for CAGR
 
 ## 7. Programmer Mode Module
+
 - [ ] Create `modules/programmer/ProgrammerCalculator.tsx` layout
 - [ ] Implement Base Conversion logic (Bin, Oct, Dec, Hex)
 - [ ] Implement Bitwise Operations (AND, OR, XOR, NOT, Shifts)
@@ -65,6 +71,7 @@
 - [ ] Write unit tests for bitwise logic
 
 ## 8. Unit Converter Module
+
 - [ ] Create `modules/unit/UnitConverter.tsx` layout
 - [ ] Create Unit Conversion Service/Utilities (Length, Weight, Temp)
 - [ ] Implement Currency Conversion UI connected to `CurrencyService`
@@ -72,6 +79,7 @@
 - [ ] Write unit tests for unit conversions
 
 ## 9. Graphing Engine
+
 - [ ] Create `workers/graphWorker.ts` for background computation
 - [ ] Create `modules/graph/GraphCalculator.tsx` layout with Canvas
 - [ ] Implement function parser for graphing (y = f(x))
@@ -80,6 +88,7 @@
 - [ ] Write unit tests for graph coordinator
 
 ## 10. AI/Natural Input Mode
+
 - [ ] Create `modules/ai/NaturalInput.tsx` layout
 - [ ] Implement Regex-based Intent Parser (detect "EMI", "50% of", units)
 - [ ] Map intents to specific module functions
@@ -87,6 +96,7 @@
 - [ ] Write unit tests for intent parser
 
 ## 11. Final Polish & Performance
+
 - [ ] Audit Lighthouse score and optimize (Fonts, Lazy Loading)
 - [ ] Verify PWA manifest and Service Worker
 - [ ] Ensure 100% keyboard accessibility (Tab order, Focus rings)

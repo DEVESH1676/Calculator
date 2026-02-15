@@ -19,7 +19,9 @@ function App() {
       case 'standard':
         return (
           <div className="flex h-full w-full relative">
-            <div className={`flex justify-center items-center transition-all duration-500 ease-in-out ${isGraphOpen ? 'w-1/2' : 'w-full'} h-full`}>
+            <div
+              className={`flex justify-center items-center transition-all duration-500 ease-in-out ${isGraphOpen ? 'w-1/2' : 'w-full'} h-full`}
+            >
               <StandardMode />
             </div>
             <div
@@ -28,7 +30,7 @@ function App() {
             >
               {isGraphOpen && <GraphPanel />}
             </div>
-          </div >
+          </div>
         );
       case 'financial':
         return <FinancialMode />;
@@ -44,9 +46,7 @@ function App() {
   return (
     <ThemeProvider>
       <MainLayout activeMode={activeMode} onModeChange={setActiveMode}>
-        <Suspense fallback={<LoadingSpinner />}>
-          {renderMode()}
-        </Suspense>
+        <Suspense fallback={<LoadingSpinner />}>{renderMode()}</Suspense>
       </MainLayout>
     </ThemeProvider>
   );

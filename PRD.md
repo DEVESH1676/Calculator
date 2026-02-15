@@ -278,11 +278,11 @@ Screen reader compatibility
 
 9️⃣ Technical Architecture
 /modules
-  /standard
-  /scientific
-  /financial
-  /unit
-  /programmer
+/standard
+/scientific
+/financial
+/unit
+/programmer
 /hooks
 /utils
 /services
