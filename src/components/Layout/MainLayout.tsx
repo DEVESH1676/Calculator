@@ -45,10 +45,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ activeMode, onModeChange, child
               <button
                 key={tab.id}
                 onClick={() => onModeChange(tab.id as CalculatorMode)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${isActive
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  isActive
                     ? `${theme.accent} text-white shadow-lg shadow-${theme.accent}/20`
                     : `${theme.text} hover:bg-black/5 opacity-70 hover:opacity-100`
-                  }`}
+                }`}
               >
                 <Icon size={16} />
                 <span className="hidden sm:inline">{tab.label}</span>
