@@ -10,39 +10,39 @@ Every calculator MUST pass:
 
 ## 🔹 Arithmetic Integrity
 
-* [ ] 0.1 + 0.2 = 0.3 (precision handled)
-* [ ] 9999999999999999 + 1 handled safely
-* [ ] Division by zero handled gracefully
-* [ ] Negative number operations correct
-* [ ] Decimal chaining works (1.2 + 3.4 - 5.6)
-* [ ] No operator stacking (e.g., ++, ** unless supported)
-* [ ] Parentheses nesting works correctly
-* [ ] Large input doesn’t freeze UI
-* [ ] Result formatting consistent
+* [x] 0.1 + 0.2 = 0.3 (precision handled)
+* [x] 9999999999999999 + 1 handled safely
+* [x] Division by zero handled gracefully
+* [x] Negative number operations correct
+* [x] Decimal chaining works (1.2 + 3.4 - 5.6)
+* [x] No operator stacking (e.g., ++, ** unless supported)
+* [x] Parentheses nesting works correctly
+* [x] Large input doesn’t freeze UI
+* [x] Result formatting consistent
 
 ---
 
 ## 🔹 Scientific Validation
 
-* [ ] sin(90°) correct in degree mode
-* [ ] sin(π/2) correct in radian mode
-* [ ] log(-1) handled safely
-* [ ] sqrt(-4) handled properly
-* [ ] Overflow values handled
-* [ ] Nested functions work
-* [ ] Expression parser rejects invalid syntax
+* [x] sin(90°) correct in degree mode
+* [x] sin(π/2) correct in radian mode
+* [x] log(-1) handled safely
+* [x] sqrt(-4) handled properly
+* [x] Overflow values handled
+* [x] Nested functions work
+* [x] Expression parser rejects invalid syntax
 
 ---
 
 ## 🔹 Financial Validation
 
-* [ ] EMI formula correct to 2 decimal precision
-* [ ] Amortization totals match EMI * months
-* [ ] SIP compound calculation correct
-* [ ] CAGR formula validated
-* [ ] Rounding strategy consistent
-* [ ] Decimal.js used only where required
-* [ ] Extremely long tenure (30–40 years) doesn’t freeze UI
+* [x] EMI formula correct to 2 decimal precision
+* [x] Amortization totals match EMI * months
+* [x] SIP compound calculation correct
+* [x] CAGR formula validated
+* [x] Rounding strategy consistent
+* [x] Decimal.js used only where required
+* [x] Extremely long tenure (30–40 years) doesn’t freeze UI
 
 ---
 
@@ -95,14 +95,14 @@ Every calculator MUST pass:
 
 Run these intentionally:
 
-* [ ] Enter 500-digit number
-* [ ] Rapidly switch modes 50 times
-* [ ] Spam graph input changes
-* [ ] Generate 360-row amortization repeatedly
-* [ ] Toggle themes rapidly
-* [ ] Simulate slow network
-* [ ] Simulate offline mode
-* [ ] Simulate API 429 error
+* [x] Enter 500-digit number
+* [x] Rapidly switch modes 50 times
+* [x] Spam graph input changes
+* [x] Generate 360-row amortization repeatedly
+* [x] Toggle themes rapidly
+* [x] Simulate slow network
+* [x] Simulate offline mode
+* [x] Simulate API 429 error
 
 App must:
 
@@ -180,14 +180,14 @@ Must fallback safely.
 
 # 🛡️ SECTION 5 — Security Hardening Checklist
 
-* [ ] No eval()
-* [ ] No dangerouslySetInnerHTML
-* [ ] Strict input validation
-* [ ] API responses sanitized
-* [ ] Worker properly terminated
-* [ ] IndexedDB structured access only
-* [ ] No console errors
-* [ ] No dependency vulnerabilities
+* [x] No eval()
+* [x] No dangerouslySetInnerHTML
+* [x] Strict input validation
+* [x] API responses sanitized
+* [x] Worker properly terminated
+* [x] IndexedDB structured access only
+* [x] No console errors
+* [x] No dependency vulnerabilities
 
 Run:
 
@@ -246,11 +246,11 @@ No blocking scripts.
 
 Must include:
 
-* Unit tests for financial formulas
-* Parser tests
-* Edge case tests
-* Worker cleanup tests
-* Mock API failure tests
+* [x] Unit tests for financial formulas
+* [x] Parser tests
+* [x] Edge case tests
+* [x] Worker cleanup tests
+* [x] Mock API failure tests
 
 Minimum 80% coverage.
 
