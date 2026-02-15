@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { LayoutGrid, HelpCircle } from 'lucide-react';
+import { LayoutGrid, HelpCircle, Sun, Moon } from 'lucide-react';
 import { useThemeStore } from '../../store/useThemeStore';
-import type { Theme } from '../../theme/themes';
 import TabNavigation from '../shared/TabNavigation';
 import UserGuide from '../UserGuide';
 
@@ -14,13 +13,6 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { theme, setTheme, currentTheme } = useThemeStore();
   const [showGuide, setShowGuide] = useState(false);
-
-  const themesList = [
-    { id: 'light', color: 'bg-gray-100' },
-    { id: 'dark', color: 'bg-[#1a2b34]' },
-    { id: 'neon', color: 'bg-black border border-[#00f5ff]' },
-    { id: 'minimal', color: 'bg-[#f5f5f5]' },
-  ];
 
   return (
     <div className={`flex flex-col h-screen w-full ${theme.text} transition-colors duration-500`}>
@@ -49,16 +41,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </button>
 
           {/* Theme Switcher */}
-          <div className="flex gap-2">
-            {themesList.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTheme(t.id as Theme)}
-                className={`w-6 h-6 rounded-full ${t.color} ${currentTheme === t.id ? 'ring-2 ring-offset-2 ring-blue-400' : 'opacity-50 hover:opacity-100'} transition-all`}
-                title={t.id}
-              />
-            ))}
-          </div>
+          <button
+            onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+            className={`p-2 rounded-full transition-all duration-300 ${currentTheme === 'dark'
+              ? 'bg-yellow-400/10 text-yellow-400 hover:bg-yellow-400/20 shadow-[0_0_10px_rgba(250,204,21,0.2)]'
+              : 'bg-indigo-600/10 text-indigo-600 hover:bg-indigo-600/20'
+              }`}
+            title={`Switch to ${currentTheme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          >
+            {currentTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
         </div>
       </header>
 
