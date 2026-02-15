@@ -1,16 +1,16 @@
 import React, { useState, useEffect, type KeyboardEvent } from 'react';
 import { math, formatResult } from '../../utils/mathConfig';
 import { cn } from '../../utils/cn';
-import HistorySidebar from '../HistorySidebar';
+import HistorySidebar from '../../components/HistorySidebar';
 import { useCalculatorStore } from '../../store/useCalculatorStore';
 import type { HistoryItem } from '../../store/useCalculatorStore';
 import { useHistory } from '../../hooks/useHistory';
-import AIChatPanel from '../AIChatPanel';
+import AIChatPanel from '../ai/AIModule'; // Point to new AI module location
 import { History, Minimize2, Bot, MoreHorizontal, ArrowUpRight } from 'lucide-react';
 import { useToastStore } from '../../store/useToastStore';
 import { useThemeStore } from '../../store/useThemeStore';
-import InputDisplay from '../shared/InputDisplay';
-import CalculatorButton from '../shared/CalculatorButton';
+import InputDisplay from '../../components/shared/InputDisplay';
+import CalculatorButton from '../../components/shared/CalculatorButton';
 
 const StandardMode: React.FC = () => {
   // Global State

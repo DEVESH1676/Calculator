@@ -1,16 +1,17 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StandardMode from './components/modes/StandardMode';
-import GraphPanel from './components/GraphPanel';
-import MainLayout from './components/Layout/MainLayout';
-import LoadingSpinner from './components/LoadingSpinner';
-import { useCalculatorStore } from './store/useCalculatorStore';
-import GlobalToastProvider from './components/ui/GlobalToastProvider';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import MainLayout from '../components/Layout/MainLayout';
+import { useCalculatorStore } from '../store/useCalculatorStore';
+import LoadingSpinner from '../components/LoadingSpinner';
+import GlobalToastProvider from '../components/ui/GlobalToastProvider';
 
-// Lazy load other modes
-const FinancialMode = React.lazy(() => import('./components/modes/FinancialMode'));
-const UnitConverterMode = React.lazy(() => import('./components/modes/UnitConverterMode'));
-const ProgrammerMode = React.lazy(() => import('./components/modes/ProgrammerMode'));
+// Lazy load modes
+const StandardMode = lazy(() => import('../modules/standard/StandardModule'));
+const FinancialMode = lazy(() => import('../modules/financial/FinancialModule'));
+const UnitConverterMode = lazy(() => import('../modules/unit/UnitModule'));
+const ProgrammerMode = lazy(() => import('../modules/programmer/ProgrammerModule'));
+const GraphPanel = lazy(() => import('../modules/graph/GraphModule'));
+const AIChatPanel = lazy(() => import('../modules/ai/AIModule'));
 
 // Extracted component to prevent recreation on re-renders
 const StandardWithGraph = () => {
@@ -27,17 +28,17 @@ const StandardWithGraph = () => {
         className={`transition-all duration-500 ease-in-out flex flex-col justify-center items-center p-4 h-full
               ${isGraphOpen ? 'w-1/2 opacity-100 translate-x-0' : 'w-0 opacity-0 translate-x-full pointer-events-none absolute right-0'}`}
       >
-        {isGraphOpen && <GraphPanel />}
+        {isGraphOpen && (
+          <Suspense fallback={<LoadingSpinner />}>
+            <GraphPanel />
+          </Suspense>
+        )}
       </div>
     </div>
   );
 };
 
 function App() {
-  // App doesn't need to subscribe to store anymore if StandardWithGraph handles its own layout logic
-  // But wait, StandardWithGraph uses isGraphOpen.
-  // The Route renders StandardWithGraph.
-
   return (
     <Router>
       <GlobalToastProvider />
@@ -54,7 +55,5 @@ function App() {
     </Router>
   );
 }
-
-
 
 export default App;
