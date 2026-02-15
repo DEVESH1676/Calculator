@@ -53,7 +53,7 @@ const CalculatorButton: React.FC<CalculatorButtonProps> = ({
             whileHover={{ scale: 1.02 }}
             onClick={onClick}
             className={cn(
-                'relative overflow-hidden rounded-2xl text-xl font-semibold transition-all duration-200 flex items-center justify-center select-none outline-none focus:ring-2 focus:ring-[#00f5ff]/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-95 touch-manipulation',
+                'relative overflow-hidden rounded-2xl text-xl font-semibold transition-all duration-200 flex items-center justify-center select-none outline-none focus:ring-2 focus:ring-[#00f5ff]/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-95 touch-manipulation min-h-[3.5rem]',
                 getVariantStyles(variant),
                 className
             )}
