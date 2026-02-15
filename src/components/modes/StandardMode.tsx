@@ -208,7 +208,7 @@ const Calculator: React.FC = () => {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((e: KeyboardEvent) => {
     const key = e.key;
     if (/[0-9]/.test(key)) handleButtonClick(key);
     if (key === '.') handleButtonClick('.');
@@ -217,7 +217,7 @@ const Calculator: React.FC = () => {
     if (key === 'Enter') handleButtonClick('=');
     if (key === 'Backspace') handleButtonClick('C');
     if (key === 'Escape') handleButtonClick('AC');
-  };
+  }, [input, lastCalculated, error, isScientific, isDegree, isGraphOpen]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -362,15 +362,14 @@ const Calculator: React.FC = () => {
                 className={`
                                     relative overflow-hidden rounded-2xl text-xl font-medium transition-all duration-200
                                     active:scale-95 hover:shadow-lg flex items-center justify-center
-                                    ${
-                                      btn.type === 'equal'
-                                        ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
-                                        : btn.type === 'operator'
-                                          ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
-                                          : btn.type === 'function'
-                                            ? 'bg-white/5 text-white/60 hover:bg-white/10'
-                                            : 'bg-white/5 text-white hover:bg-white/10' /* number */
-                                    }
+                                    ${btn.type === 'equal'
+                    ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
+                    : btn.type === 'operator'
+                      ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
+                      : btn.type === 'function'
+                        ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                        : 'bg-white/5 text-white hover:bg-white/10' /* number */
+                  }
                                     ${btn.label === '0' ? 'col-span-1' : ''} 
                                     ${btn.val === 'sci' ? (isScientific ? 'text-[#00f5ff] bg-white/10' : '') : ''}
                                 `}
