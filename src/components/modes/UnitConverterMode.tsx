@@ -24,7 +24,7 @@ const UnitConverterMode: React.FC = () => {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const units: any = {
+  const units: Record<string, string[]> = {
     Length: ['m', 'km', 'cm', 'mm', 'inch', 'ft', 'yd', 'mile'],
     Weight: ['kg', 'g', 'mg', 'lb', 'oz'],
     Temperature: ['Celsius', 'Fahrenheit', 'Kelvin'],
@@ -32,7 +32,7 @@ const UnitConverterMode: React.FC = () => {
   };
 
   // Unit Mapping for mathjs
-  const unitMap: any = {
+  const unitMap: Record<string, string> = {
     Celsius: 'degC',
     Fahrenheit: 'degF',
     Kelvin: 'K',
@@ -145,11 +145,10 @@ const UnitConverterMode: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-                isActive
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${isActive
                   ? `${theme.accent} text-white shadow-md`
                   : `${theme.text} opacity-60 hover:opacity-100`
-              }`}
+                }`}
             >
               <Icon size={16} />
               <span>{cat.id}</span>
