@@ -26,7 +26,6 @@ const HistorySidebar: React.FC<HistorySidebarProps> = ({
   const [isVisible, setIsVisible] = useState(isOpen);
 
   useEffect(() => {
-
     if (isOpen) {
       setTimeout(() => setIsVisible(true), 0);
     } else {
@@ -41,15 +40,17 @@ const HistorySidebar: React.FC<HistorySidebarProps> = ({
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'
-          }`}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
         onClick={onClose}
       ></div>
 
       {/* Sidebar */}
       <div
-        className={`fixed right-0 top-0 h-full w-[85%] md:w-[30%] bg-[#0f2027]/95 backdrop-blur-2xl border-l border-[#00f5ff]/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+        className={`fixed right-0 top-0 h-full w-[85%] md:w-[30%] bg-[#0f2027]/95 backdrop-blur-2xl border-l border-[#00f5ff]/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
         <div className="flex flex-col h-full p-6 text-white">
           {/* Header */}
