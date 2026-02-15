@@ -31,7 +31,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <header className={`flex items-center justify-between px-6 py-4 ${theme.glass} z-50`}>
         <div className="flex items-center gap-2">
           <LayoutGrid className={theme.primary} />
-          <h1 className="font-bold text-xl tracking-tight hidden md:block">ModCalc</h1>
+          <h1 className="font-bold text-xl tracking-tight hidden md:block">Calculator</h1>
         </div>
 
         <TabNavigation />

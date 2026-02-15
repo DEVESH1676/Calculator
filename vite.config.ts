@@ -14,10 +14,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'ModCalc - Modular Calculator',
-        short_name: 'ModCalc',
-        description: 'High-performance modular calculator with Financial, Graphing, and AI modes.',
-        theme_color: '#000000',
+        name: 'Calculator',
+        short_name: 'Calculator',
+        description: 'A splendid, high-performance calculator for Professionals.',
+        theme_color: '#050b14',
         icons: [
           {
             src: 'pwa-192x192.png',

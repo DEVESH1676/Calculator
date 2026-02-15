@@ -66,7 +66,7 @@ const InputDisplay: React.FC<InputDisplayProps> = ({
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.1 }}
                     className={cn(
-                        'font-mono font-bold whitespace-nowrap',
+                        'font-mono font-bold whitespace-nowrap tracking-wider',
                         isScientific ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl'
                     )}
                 >

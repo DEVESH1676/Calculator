@@ -80,7 +80,7 @@ const UserGuide: React.FC<UserGuideProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-white/10 text-center opacity-50 text-xs">
-                        ModCalc v1.0 • Offline Ready (PWA) • Powered by React & Vite
+                        Calculator v1.0 • Offline Ready (PWA) • Powered by React & Vite
                     </div>
                 </div>
             </div>
