@@ -3,6 +3,7 @@ import { Scale, Ruler, Thermometer, DollarSign, ArrowRightLeft, RefreshCw } from
 import { useThemeStore } from '../../store/useThemeStore';
 import { math } from '../../utils/mathConfig';
 import { CurrencyService } from '../../services/CurrencyService';
+import { convertUnit } from '../../utils/unitUtils';
 
 const UnitConverterMode: React.FC = () => {
   const { theme } = useThemeStore();
@@ -83,56 +84,10 @@ const UnitConverterMode: React.FC = () => {
   };
 
   // Conversion Logic
+  // Delegate to utility
   const convert = (val: number, from: string, to: string, cat: string) => {
-    if (isNaN(val)) return '';
-    if (from === to) return val.toString();
-
-    if (cat === 'Currency') {
-      if (!currencyRates) return '...';
-
-      // Convert From -> USD -> To
-      // Rates are based on USD.
-      // 1 USD = x From
-      // 1 USD = y To
-      // Value (From) / Rate(From) = Value (USD)
-      // Value (USD) * Rate(To) = Value (To)
-
-      try {
-        const amount = math.bignumber(val);
-        const rateFrom = math.bignumber(currencyRates[from] || 1); // Default 1 if missing
-        const rateTo = math.bignumber(currencyRates[to] || 1);
-
-        const result = amount.div(rateFrom).mul(rateTo);
-        return result.toFixed(2);
-      } catch {
-        return '';
-      }
-    }
-
-    try {
-      // Use mathjs unit conversion
-      const fromU = getMathUnit(from);
-      const toU = getMathUnit(to);
-
-      const unitValue = math.unit(math.bignumber(val), fromU);
-      const result = unitValue.to(toU);
-
-      // result.toNumeric(unit) returns the numeric value (number or BigNumber)
-      const num = result.toNumeric(toU);
-
-      // Format
-      if (typeof num === 'number') {
-        return num.toFixed(6).replace(/\.?0+$/, '');
-      } else {
-        // BigNumber
-        return (num as unknown as { toFixed: (n: number) => string })
-          .toFixed(6)
-          .replace(/\.?0+$/, '');
-      }
-    } catch {
-      // console.error("Conversion Warning:", e);
-      return '';
-    }
+    // Pass currencyRates if available
+    return convertUnit(val, from, to, cat, currencyRates);
   };
 
   // Set default units on category change
