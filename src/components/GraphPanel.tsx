@@ -45,11 +45,11 @@ const GraphPanel: React.FC = () => {
       const lastItem = history[0];
       const targetExpr = lastItem.expression.includes('x') ? lastItem.expression : 'sin(x) * x';
       if (expression !== targetExpr) {
-        setExpression(targetExpr);
+        requestAnimationFrame(() => setExpression(targetExpr));
       }
     } else {
       if (expression !== 'sin(x) * x') {
-        setExpression('sin(x) * x');
+        requestAnimationFrame(() => setExpression('sin(x) * x'));
       }
     }
   }, [history]);

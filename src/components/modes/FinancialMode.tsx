@@ -5,6 +5,8 @@ import { useTheme } from '../../context/ThemeContext';
 import { InputField } from './InputField';
 import AmortizationTable from '../financial/AmortizationTable';
 import FinancialChart from '../financial/FinancialChart';
+import type { AmortizationItem } from '../financial/AmortizationTable';
+import type { ChartData } from '../financial/FinancialChart';
 
 const FinancialMode: React.FC = () => {
   const { theme } = useTheme();
@@ -172,8 +174,8 @@ const FinancialMode: React.FC = () => {
     totalAmount?: number;
     invested?: number;
     cagr?: number;
-    schedule?: any[];
-    chartData?: any[];
+    schedule?: AmortizationItem[];
+    chartData?: ChartData[];
   }
 
   let result: FinancialResult | null = null;
@@ -207,11 +209,10 @@ const FinancialMode: React.FC = () => {
                 setActiveTool(tool.id as 'emi' | 'sip' | 'cagr');
                 setShowDetails(false);
               }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive
-                  ? `${theme.accent} text-white shadow-md`
-                  : `${theme.text} opacity-60 hover:opacity-100`
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive
+                ? `${theme.accent} text-white shadow-md`
+                : `${theme.text} opacity-60 hover:opacity-100`
+                }`}
             >
               <Icon size={16} />
               <span>{tool.label}</span>

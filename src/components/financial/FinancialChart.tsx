@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import { useTheme } from '../../context/ThemeContext';
 
-interface ChartData {
+export interface ChartData {
   year: number;
   invested: number;
   value: number;

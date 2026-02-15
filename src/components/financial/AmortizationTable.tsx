@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 
-interface AmortizationItem {
+export interface AmortizationItem {
   month: number;
   principal: string;
   interest: string;
