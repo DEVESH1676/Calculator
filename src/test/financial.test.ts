@@ -41,5 +41,28 @@ describe('Financial Utils', () => {
             expect(result).not.toBeNull();
             expect(result?.cagr).toBeCloseTo(0.1487, 3);
         });
+
+        it('should handle zero tenure gracefully', () => {
+            expect(calculateCAGR('1000', '2000', '0')).toBeNull();
+        });
+    });
+
+    describe('Regression Tests (Security Patches)', () => {
+        it('should return null for Zero Tenure in EMI', () => {
+            expect(calculateEMI('10000', '10', '0')).toBeNull();
+        });
+
+        it('should return null for Negative Investment in SIP', () => {
+            expect(calculateSIP('-5000', '10', '5')).toBeNull();
+        });
+
+        it('should handle 0% Interest in SIP as linear growth', () => {
+            // P=5000, R=0%, T=1 year (12 months)
+            // Should just be 5000 * 12 = 60000
+            const result = calculateSIP('5000', '0', '1');
+            expect(result).not.toBeNull();
+            expect(result?.totalAmount).toBe(60000);
+            expect(result?.totalInterest).toBe(0);
+        });
     });
 });
