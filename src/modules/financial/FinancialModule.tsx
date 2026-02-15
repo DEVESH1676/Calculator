@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Calculator as CalculatorIcon, Home, Coins } from 'lucide-react';
 
 import { useThemeStore } from '../../store/useThemeStore';
-import { InputField } from './InputField';
-import AmortizationTable from '../financial/AmortizationTable';
-import FinancialChart from '../financial/FinancialChart';
-import type { AmortizationItem } from '../financial/AmortizationTable';
-import type { ChartData } from '../financial/FinancialChart';
+import { InputField } from '../../components/modes/InputField'; // Need to confirm where InputField is. It was in components/modes.
+import AmortizationTable from '../../components/financial/AmortizationTable';
+import FinancialChart from '../../components/financial/FinancialChart';
+import type { AmortizationItem } from '../../components/financial/AmortizationTable';
+import type { ChartData } from '../../components/financial/FinancialChart';
 import { calculateEMI, calculateSIP, calculateCAGR } from '../../utils/financialUtils';
 
 const FinancialMode: React.FC = () => {

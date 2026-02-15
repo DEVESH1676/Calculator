@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useThemeStore } from '../store/useThemeStore';
-import { useCalculatorStore } from '../store/useCalculatorStore';
+import { useThemeStore } from '../../store/useThemeStore';
+import { useCalculatorStore } from '../../store/useCalculatorStore';
 import {
   type Dimensions,
   type GraphState,
@@ -8,9 +8,7 @@ import {
   generatePoints,
   screenToGraph,
   graphToScreen,
-  // findRoots, // moved to worker
-  // findExtrema, // moved to worker
-} from '../utils/graphUtils';
+} from '../../utils/graphUtils';
 import { Plus, Minus, RotateCcw, Target } from 'lucide-react';
 
 const GraphPanel: React.FC = () => {
@@ -43,7 +41,7 @@ const GraphPanel: React.FC = () => {
   const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL('../workers/graphWorker.ts', import.meta.url), {
+    workerRef.current = new Worker(new URL('../../workers/graphWorker.ts', import.meta.url), {
       type: 'module',
     });
 
