@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { useThemeStore } from '../../store/useThemeStore';
+import { useThemeStore } from '../../../store/useThemeStore';
 
 export interface ChartData {
   year: number;
