@@ -48,7 +48,45 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
           {/* Theme Switcher */}
           <button
-            onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+            onClick={(e) => {
+              const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+              // @ts-ignore - View Transition API check
+              if (!document.startViewTransition) {
+                setTheme(newTheme);
+                return;
+              }
+
+              const x = e.clientX;
+              const y = e.clientY;
+              const right = window.innerWidth - x;
+              const bottom = window.innerHeight - y;
+              const maxRadius = Math.hypot(
+                Math.max(x, right),
+                Math.max(y, bottom)
+              );
+
+              // @ts-ignore
+              const transition = document.startViewTransition(() => {
+                setTheme(newTheme);
+              });
+
+              transition.ready.then(() => {
+                document.documentElement.animate(
+                  {
+                    clipPath: [
+                      `circle(0px at ${x}px ${y}px)`,
+                      `circle(${maxRadius}px at ${x}px ${y}px)`,
+                    ],
+                  },
+                  {
+                    duration: 500,
+                    easing: 'ease-in-out',
+                    pseudoElement: '::view-transition-new(root)',
+                  }
+                );
+              });
+            }}
             className={`p-2 rounded-full transition-all duration-300 ${currentTheme === 'dark'
               ? 'bg-yellow-400/10 text-yellow-400 hover:bg-yellow-400/20 shadow-[0_0_10px_rgba(250,204,21,0.2)]'
               : 'bg-indigo-600/10 text-indigo-600 hover:bg-indigo-600/20'
