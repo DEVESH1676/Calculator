@@ -17,25 +17,25 @@
 - [x] Create MainLayout and standard UI components
 - [x] Configure Routing
 - [x] Create `App` layout component with `GlobalToastProvider` and `Background`
-- [ ] Create reusable `CalculatorButton` component with variants
-- [ ] Create `InputDisplay` component with animation support
-- [ ] Create `TabNavigation` component for switching modules
-- [ ] Set up React Router with lazy loading for modules
+- [x] Create reusable `CalculatorButton` component with variants
+- [x] Create `InputDisplay` component with animation support
+- [x] Create `TabNavigation` component for switching modules
+- [x] Set up React Router with lazy loading for modules
 
 ## 3. Storage & Services Layer
 
-- [ ] Install `dexie` and `decimal.js`
-- [ ] Create `db/index.ts` configuration for IndexedDB (History, Settings, Currency Cache)
-- [ ] Create `useHistory` hook for saving/retrieving calculation history
-- [ ] Create `CurrencyService` with caching logic (fetch + localStorage/IndexedDB fallback)
-- [ ] Create `SettingsStore` (Zustand) for global preferences (precision, radians/degrees)
+- [x] Install `dexie` and `decimal.js`
+- [x] Create `db/index.ts` configuration for IndexedDB (History, Settings, Currency Cache)
+- [x] Create `useHistory` hook for saving/retrieving calculation history
+- [x] Create `CurrencyService` with caching logic (fetch + localStorage/IndexedDB fallback)
+- [x] Create `SettingsStore` (Zustand) for global preferences (precision, radians/degrees)
 
 ## 4. Standard Calculator Module
 
-- [ ] Create `modules/standard/StandardCalculator.tsx` layout
-- [ ] Implement basic arithmetic logic (add, subtract, multiply, divide)
-- [ ] Implement keyboard support for standard operations
-- [ ] Connect input/output to Global History
+- [x] Create `modules/standard/StandardCalculator.tsx` layout
+- [x] Implement basic arithmetic logic (add, subtract, multiply, divide)
+- [x] Implement keyboard support for standard operations
+- [x] Connect input/output to Global History
 - [ ] Write unit tests for standard math operations
 
 ## 5. Scientific Calculator Module
@@ -104,3 +104,47 @@
 - [ ] Ensure 100% keyboard accessibility (Tab order, Focus rings)
 - [ ] Run full test suite and fix regressions
 - [ ] Create User Guide / Documentation in UI
+
+---
+
+## Reference: Previous Roadmap (Legacy)
+*Merged from previous session plans. Most items are covered above.*
+
+### Phase 1: Deep Audit
+- [x] **State Flow & Re-render Analysis**: Identify prop drilling and unnecessary renders.
+- [x] **Component Responsibility Review**: Check for monolithic components code splitting opportunities.
+- [x] **Precision & Logic Check**: Audit floating point handling and edge cases.
+- [x] **Accessibility & Motion Audit**: Evaluate ARIA usage and animation performance.
+- [x] **Report Generation**: Compile findings into an audit summary.
+
+### Phase 2: Core Optimization
+- [x] **State Management**: Implement Context/Zustand, remove prop drilling.
+- [x] **Precision Fixes**: Integrate `decimal.js` or `big.js`, fix rounding errors.
+- [x] **Performance**: Lazy load modes, code-split routes, memoize graph data.
+
+### Phase 3: Real-Time Data Integration
+- [x] **Currency Converter**: Integrate external API with caching and fallback.
+- [x] **Financial Enhancements**: Add Amortization schedule, SIP yearly growth chart.
+
+### Phase 4: Graphing Engine Upgrade
+- [x] **Optimization**: Memoize rendering, use `requestAnimationFrame`.
+- [x] **UX**: Add crosshair, tooltips, smooth zoom/pan.
+
+### Phase 5: Motion System Upgrade
+- [ ] **Unified Motion**: Implement page transitions, micro-interactions using Framer Motion (or optimized CSS).
+
+### Phase 6: Edge Case Handling
+- [ ] **Robustness**: Handle massive numbers, division by zero, API failures, offline state.
+
+### Phase 7: Architecture Upgrade
+- [ ] **Restructure**: Reorganize into `/modules`, `/services`, `/hooks`, `/context`.
+
+### Phase 8: Accessibility
+- [ ] **A11y**: Add ARIA roles, focus rings, keyboard navigation.
+
+### Phase 9: Responsive Optimization
+- [ ] **Mobile/Tablet**: optimize layouts and touch interactions.
+
+### Phase 10: Testing & Final Polish
+- [ ] **Testing**: Add unit tests, snapshot tests.
+- [ ] **Final Polish**: Lighthouse score > 90, documentation, cleanup.

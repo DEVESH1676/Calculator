@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, type KeyboardEvent } from 'react';
 import { math, formatResult } from '../../utils/mathConfig';
+import { cn } from '../../utils/cn';
 import HistorySidebar from '../HistorySidebar';
 import { useCalculatorStore } from '../../store/useCalculatorStore';
 import type { HistoryItem } from '../../store/useCalculatorStore';
+import { useHistory } from '../../hooks/useHistory';
 import AIChatPanel from '../AIChatPanel';
 import { History, Minimize2, Bot, MoreHorizontal, ArrowUpRight } from 'lucide-react';
+import { useToastStore } from '../../store/useToastStore';
 import { useThemeStore } from '../../store/useThemeStore';
+import InputDisplay from '../shared/InputDisplay';
+import CalculatorButton from '../shared/CalculatorButton';
 
-const Calculator: React.FC = () => {
+const StandardMode: React.FC = () => {
   // Global State
   const {
     isGraphOpen,
@@ -15,7 +20,7 @@ const Calculator: React.FC = () => {
     setExpression,
     isDegree,
     setIsDegree,
-    addToHistory: addHistoryItem,
+    // addToHistory: addHistoryItem, // Removed in favor of persistent history
     isHistoryOpen,
     toggleHistory,
     isAiOpen,
@@ -23,6 +28,7 @@ const Calculator: React.FC = () => {
   } = useCalculatorStore();
 
   const { theme } = useThemeStore();
+  const { addToast } = useToastStore();
 
   // Local Calculator State
   const [input, setInput] = useState<string>('0');
@@ -35,13 +41,14 @@ const Calculator: React.FC = () => {
     setExpression(input);
   }, [input, setExpression]);
 
+  const { addHistoryItem } = useHistory();
+
   const addToHistory = (expression: string, resultVal: string) => {
-    const newItem: HistoryItem = {
+    addHistoryItem({
       expression,
       result: resultVal,
-      timestamp: Date.now(),
-    };
-    addHistoryItem(newItem);
+      module: 'standard',
+    });
   };
 
   const handleHistorySelect = (item: HistoryItem) => {
@@ -51,8 +58,6 @@ const Calculator: React.FC = () => {
     toggleHistory(false);
   };
 
-
-
   const handleButtonClick = (value: string) => {
     if (error) {
       setError(false);
@@ -61,11 +66,8 @@ const Calculator: React.FC = () => {
         setResult('');
         return;
       }
-      // If error, any other key just ignores or resets?
-      // Standard calc behavior: AC to clear.
       if (!['AC'].includes(value)) {
         setInput(value);
-        // Or just return? Let's reset input.
       }
     }
 
@@ -93,14 +95,12 @@ const Calculator: React.FC = () => {
       if (['+', '-', '*', '/', '^', '%'].includes(value)) {
         setLastCalculated(false);
       } else {
-        // New number starts new calculation
         setInput(value);
         setLastCalculated(false);
         return;
       }
     }
 
-    // Logic for specific keys
     switch (value) {
       case 'History':
         toggleHistory(true);
@@ -153,7 +153,6 @@ const Calculator: React.FC = () => {
     try {
       const expression = input;
 
-      // Replacements for mathjs
       const evalInput = expression
         .replace(/×/g, '*')
         .replace(/÷/g, '/')
@@ -166,18 +165,16 @@ const Calculator: React.FC = () => {
 
       const scope: Record<string, unknown> = {};
       if (isDegree) {
-        // Ensure trig functions expect degrees if in Degree mode
         scope.sin = (x: unknown) => math.sin(math.unit(x as number, 'deg'));
         scope.cos = (x: unknown) => math.cos(math.unit(x as number, 'deg'));
         scope.tan = (x: unknown) => math.tan(math.unit(x as number, 'deg'));
       }
 
       const res = math.evaluate(evalInput, scope);
-
       const resString = formatResult(res);
 
-      // Handle 'undefined' or NaN
       if (resString === 'NaN' || resString === 'undefined') {
+        addToast({ message: 'Invalid Result', type: 'error' });
         throw new Error('Invalid Result');
       }
 
@@ -189,6 +186,7 @@ const Calculator: React.FC = () => {
       setError(true);
       setInput('Error');
       setResult('');
+      addToast({ message: 'Calculation Error', type: 'error' });
     }
   };
 
@@ -203,23 +201,15 @@ const Calculator: React.FC = () => {
       if (key === 'Backspace') handleButtonClick('C');
       if (key === 'Escape') handleButtonClick('AC');
     },
-
-    [input, lastCalculated, error, isScientific, isDegree, isGraphOpen, handleButtonClick]
+    [input, lastCalculated, error, isScientific, isDegree, isGraphOpen]
   );
 
   useEffect(() => {
+    // @ts-ignore
     window.addEventListener('keydown', handleKeyDown);
+    // @ts-ignore
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [
-    input,
-    lastCalculated,
-    error,
-    isScientific,
-    isDegree,
-    isGraphOpen,
-    handleKeyDown,
-    handleButtonClick,
-  ]);
+  }, [handleKeyDown]);
 
   const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
@@ -274,7 +264,7 @@ const Calculator: React.FC = () => {
     <div className="flex flex-col h-full w-full relative overflow-hidden">
       {/* Display Area */}
       <div
-        className={`flex flex-col justify-end p-8 pb-4 transition-all duration-300 ${isGraphOpen ? 'h-[35%]' : 'h-[35%] md:h-[45%]'} `}
+        className={`flex flex-col justify-end p-8 pb-4 transition-all duration-300 ${isGraphOpen ? 'h-[35%]' : 'h-[35%] md:h-[45%]'}`}
       >
         <div className="flex justify-between items-start mb-4">
           <div className="flex gap-2">
@@ -301,19 +291,12 @@ const Calculator: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-right space-y-2">
-          <div
-            className={`text-white/40 text-sm font-mono h-6 transition-opacity ${error ? 'opacity-0' : 'opacity-100'}`}
-          >
-            {result}
-          </div>
-          <input
-            type="text"
-            value={input}
-            readOnly
-            className={`w-full bg-transparent text-right outline-none font-bold text-white transition-all ${isGraphOpen ? 'text-4xl' : 'text-5xl md:text-6xl'} font-mono overflow-x-auto custom-scrollbar`}
-          />
-        </div>
+        <InputDisplay
+          input={input}
+          result={result}
+          error={error}
+          isScientific={isGraphOpen} // Reusing this intentionally for size variant
+        />
       </div>
 
       {/* Keypad Area */}
@@ -327,8 +310,11 @@ const Calculator: React.FC = () => {
           >
             <div className="grid grid-cols-6 gap-2">
               {scientificButtons.map((btn) => (
-                <button
+                <CalculatorButton
                   key={btn}
+                  label={btn.toUpperCase()}
+                  variant="scientific"
+                  isActive={btn === 'deg' && isDegree}
                   onClick={(e) => {
                     if (btn === 'deg') {
                       setIsDegree(!isDegree);
@@ -336,10 +322,8 @@ const Calculator: React.FC = () => {
                       handleButtonClickFn(e, btn);
                     }
                   }}
-                  className={`p-2 rounded-xl text-xs font-medium bg-[#0f2027]/50 border border-[#00f5ff]/10 text-[#00f5ff] hover:bg-[#00f5ff]/10 transition-colors ${btn === 'deg' && isDegree ? 'bg-[#00f5ff]/20' : ''}`}
-                >
-                  {btn.toUpperCase()}
-                </button>
+                  className="rounded-xl text-xs" // Override base class
+                />
               ))}
             </div>
           </div>
@@ -347,8 +331,11 @@ const Calculator: React.FC = () => {
           {/* Main Grid */}
           <div className="grid grid-cols-4 gap-4 flex-1">
             {standardButtons.map((btn) => (
-              <button
+              <CalculatorButton
                 key={btn.label}
+                label={btn.label === 'Sci' ? <MoreHorizontal size={24} /> : btn.label}
+                variant={btn.type as any} // Cast specific type
+                isActive={btn.val === 'sci' && isScientific}
                 onClick={(e) => {
                   if (btn.val === 'sci') {
                     setIsScientific(!isScientific);
@@ -356,23 +343,13 @@ const Calculator: React.FC = () => {
                     handleButtonClickFn(e, btn.val);
                   }
                 }}
-                className={`
-                                    relative overflow-hidden rounded-2xl text-xl font-medium transition-all duration-200
-                                    active:scale-95 hover:shadow-lg flex items-center justify-center
-                                    ${btn.type === 'equal'
-                    ? 'bg-gradient-to-r from-[#00f5ff] to-[#00d2ff] text-[#0f2027] shadow-[0_0_20px_rgba(0,245,255,0.3)]'
-                    : btn.type === 'operator'
-                      ? 'bg-white/10 text-[#00f5ff] hover:bg-white/15'
-                      : btn.type === 'function'
-                        ? 'bg-white/5 text-white/60 hover:bg-white/10'
-                        : 'bg-white/5 text-white hover:bg-white/10' /* number */
-                  }
-                                    ${btn.label === '0' ? 'col-span-1' : ''} 
-                                    ${btn.val === 'sci' ? (isScientific ? 'text-[#00f5ff] bg-white/10' : '') : ''}
-                                `}
-              >
-                {btn.label === 'Sci' ? <MoreHorizontal size={24} /> : btn.label}
-              </button>
+                className={cn(
+                  btn.label === '0' ? 'col-span-1' : '',
+                  // Special handling for Sci button active state visual override if needed, 
+                  // but variant='scientific' logic handles isActive
+                  btn.val === 'sci' && isScientific ? 'text-[#00f5ff] bg-white/10' : ''
+                )}
+              />
             ))}
           </div>
         </div>
@@ -392,22 +369,22 @@ const Calculator: React.FC = () => {
       )}
 
       <style>{`
-                .ripple {
-                    position: absolute;
-                    border-radius: 50%;
-                    transform: scale(0);
-                    animation: ripple 0.6s linear;
-                    background-color: rgba(255, 255, 255, 0.3);
-                }
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                        }
-                }
-             `}</style>
+        .ripple {
+          position: absolute;
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
-export default Calculator;
+export default StandardMode;
