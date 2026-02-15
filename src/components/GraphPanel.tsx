@@ -8,8 +8,8 @@ import {
   generatePoints,
   screenToGraph,
   graphToScreen,
-  findRoots,
-  findExtrema,
+  // findRoots, // moved to worker
+  // findExtrema, // moved to worker
 } from '../utils/graphUtils';
 import { Plus, Minus, RotateCcw, Target } from 'lucide-react';
 

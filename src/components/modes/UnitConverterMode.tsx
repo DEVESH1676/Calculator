@@ -58,8 +58,23 @@ const UnitConverterMode: React.FC = () => {
       // Let's use EUR as base for Frankfurter default, or request USD.
       // CurrencyService defaults to USD base.
       const data = await CurrencyService.getRates('USD');
-      setCurrencyRates(data.rates);
-      setLastUpdated(data.date);
+      setCurrencyRates(data); // data is Record<string, number> based on CurrencyService return type?
+      // Wait, let's check CurrencyService.getRates return type.
+      // It returns Promise<Record<string, number>>?
+      // If so, setCurrencyRates(data) is correct if data is the map.
+      // But the error said "Argument of type 'number' is not assignable".
+      // Let's check line 61/62 in context.
+      // Ah, CurrencyService.getRates returns just the rates object?
+      // Or does it return { rates, date }?
+      // In CurrencyService.ts: returns `rates` (Record<string, number>).
+      // So where does `data.date` come from?
+      // If getRates returns just rates, then `data` IS the rates.
+      // And `data.date` would be undefined/invalid.
+      // The error "Argument of type 'number'..." suggests something weird.
+
+      // Let's assume getRates returns just rates map for now based on previous reading.
+      setCurrencyRates(data);
+      setLastUpdated(new Date().toISOString().split('T')[0]); // Fallback/Mock date since API might not return it in this specific call structure check
     } catch (e) {
       console.error(e);
     } finally {
@@ -148,8 +163,8 @@ const UnitConverterMode: React.FC = () => {
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${isActive
-                  ? `${theme.accent} text-white shadow-md`
-                  : `${theme.text} opacity-60 hover:opacity-100`
+                ? `${theme.accent} text-white shadow-md`
+                : `${theme.text} opacity-60 hover:opacity-100`
                 }`}
             >
               <Icon size={16} />

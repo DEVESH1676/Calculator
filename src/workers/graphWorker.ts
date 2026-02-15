@@ -3,11 +3,6 @@ import {
     type Point,
     type Dimensions,
     type GraphState,
-    screenToGraph,
-    // graphToScreen not needed here, we return graph coordinates mostly, or screen? 
-    // Better to return graph coordinates and let UI map to screen? 
-    // efficient to map to screen in UI for smooth panning? 
-    // actually generating points in graph coordinates is best for accuracy, mapping in UI.
 } from '../utils/graphUtils';
 
 // Duplicate basic types if needed or import from shared

@@ -99,11 +99,11 @@
 
 ## 11. Final Polish & Performance
 
-- [ ] Audit Lighthouse score and optimize (Fonts, Lazy Loading)
-- [ ] Verify PWA manifest and Service Worker
-- [ ] Ensure 100% keyboard accessibility (Tab order, Focus rings)
-- [ ] Run full test suite and fix regressions
-- [ ] Create User Guide / Documentation in UI
+- [x] Audit Lighthouse score and optimize (Fonts, Lazy Loading)
+- [x] Verify PWA manifest and Service Worker
+- [x] Ensure 100% keyboard accessibility (Tab order, Focus rings)
+- [x] Run full test suite and fix regressions
+- [x] Create User Guide / Documentation in UI
 
 ---
 

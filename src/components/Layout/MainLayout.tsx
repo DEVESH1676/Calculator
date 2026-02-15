@@ -1,8 +1,9 @@
-import React from 'react';
-import { LayoutGrid } from 'lucide-react';
+import React, { useState } from 'react';
+import { LayoutGrid, HelpCircle } from 'lucide-react';
 import { useThemeStore } from '../../store/useThemeStore';
 import type { Theme } from '../../theme/themes';
 import TabNavigation from '../shared/TabNavigation';
+import UserGuide from '../UserGuide';
 
 export type CalculatorMode = 'standard' | 'financial' | 'unit' | 'programmer';
 
@@ -12,9 +13,7 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { theme, setTheme, currentTheme } = useThemeStore();
-
-
-
+  const [showGuide, setShowGuide] = useState(false);
 
   const themesList = [
     { id: 'light', color: 'bg-gray-100' },
@@ -39,16 +38,27 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
         <TabNavigation />
 
-        {/* Theme Switcher */}
-        <div className="flex gap-2">
-          {themesList.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTheme(t.id as Theme)}
-              className={`w-6 h-6 rounded-full ${t.color} ${currentTheme === t.id ? 'ring-2 ring-offset-2 ring-blue-400' : 'opacity-50 hover:opacity-100'} transition-all`}
-              title={t.id}
-            />
-          ))}
+        {/* Right Actions */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowGuide(true)}
+            className={`opacity-60 hover:opacity-100 transition-opacity`}
+            title="User Guide"
+          >
+            <HelpCircle size={24} />
+          </button>
+
+          {/* Theme Switcher */}
+          <div className="flex gap-2">
+            {themesList.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTheme(t.id as Theme)}
+                className={`w-6 h-6 rounded-full ${t.color} ${currentTheme === t.id ? 'ring-2 ring-offset-2 ring-blue-400' : 'opacity-50 hover:opacity-100'} transition-all`}
+                title={t.id}
+              />
+            ))}
+          </div>
         </div>
       </header>
 
@@ -60,6 +70,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           {children}
         </div>
       </main>
+
+      <UserGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
     </div>
   );
 };

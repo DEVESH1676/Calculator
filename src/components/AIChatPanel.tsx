@@ -1,8 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Send, X, MessageSquare } from 'lucide-react';
-import { useThemeStore } from '../store/useThemeStore';
-import { useCalculatorStore } from '../store/useCalculatorStore';
+import { Sparkles, Send } from 'lucide-react';
 
 interface AIChatMessage {
   id: string;
