@@ -43,13 +43,14 @@ const GraphPanel: React.FC = () => {
   useEffect(() => {
     if (history.length > 0) {
       const lastItem = history[0];
-      if (lastItem.expression.includes('x')) {
-        setExpression(lastItem.expression);
-      } else {
-        setExpression('sin(x) * x');
+      const targetExpr = lastItem.expression.includes('x') ? lastItem.expression : 'sin(x) * x';
+      if (expression !== targetExpr) {
+        setExpression(targetExpr);
       }
     } else {
-      setExpression('sin(x) * x');
+      if (expression !== 'sin(x) * x') {
+        setExpression('sin(x) * x');
+      }
     }
   }, [history]);
 
