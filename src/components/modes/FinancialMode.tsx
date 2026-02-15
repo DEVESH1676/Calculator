@@ -166,7 +166,17 @@ const FinancialMode: React.FC = () => {
     }
   };
 
-  let result: any = null;
+  interface FinancialResult {
+    emi?: number;
+    totalInterest?: number;
+    totalAmount?: number;
+    invested?: number;
+    cagr?: number;
+    schedule?: any[];
+    chartData?: any[];
+  }
+
+  let result: FinancialResult | null = null;
   switch (activeTool) {
     case 'emi':
       result = calculateEMI();
@@ -364,7 +374,7 @@ const FinancialMode: React.FC = () => {
                   <div className="p-8 rounded-xl bg-black/10">
                     <p className={`text-sm ${theme.text} opacity-70`}>CAGR</p>
                     <p className={`text-4xl font-bold ${theme.primary}`}>
-                      {(result.cagr * 100)?.toFixed(2)}%
+                      {((result.cagr || 0) * 100).toFixed(2)}%
                     </p>
                   </div>
                   {result.chartData && <FinancialChart data={result.chartData} type="cagr" />}
