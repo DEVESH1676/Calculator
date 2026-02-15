@@ -33,11 +33,26 @@ const GraphPanel: React.FC = () => {
   const isHovering = useRef(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
 
-  // Analysis Data (Roots/Extrema)
-  const [analysisPoints, setAnalysisPoints] = useState<{ roots: Point[]; extrema: Point[] }>({
-    roots: [],
-    extrema: [],
-  });
+  // Worker
+  const workerRef = useRef<Worker | null>(null);
+
+  useEffect(() => {
+    workerRef.current = new Worker(new URL('../workers/graphWorker.ts', import.meta.url), {
+      type: 'module',
+    });
+
+    workerRef.current.onmessage = (e) => {
+      const { type, payload } = e.data;
+      if (type === 'ANALYSIS_RESULT') {
+        setAnalysisPoints(payload);
+      }
+      // Future: Handle 'POINTS' if we offload main drawing loop
+    };
+
+    return () => {
+      workerRef.current?.terminate();
+    };
+  }, []);
 
   // Sync expression from history
   useEffect(() => {
@@ -45,37 +60,27 @@ const GraphPanel: React.FC = () => {
       const lastItem = history[0];
       const targetExpr = lastItem.expression.includes('x') ? lastItem.expression : 'sin(x) * x';
       if (expression !== targetExpr) {
-        requestAnimationFrame(() => setExpression(targetExpr));
-      }
-    } else {
-      if (expression !== 'sin(x) * x') {
-        requestAnimationFrame(() => setExpression('sin(x) * x'));
+        setExpression(targetExpr);
       }
     }
   }, [history]);
 
-  // Calculate Analysis Points (Debounced ideally, but here on expression/view change triggers)
-  // For now, I'll trigger it when user toggles "Target" (Analysis) mode to save perf
+  // Trigger Analysis via Worker
   useEffect(() => {
-    if (!showAnalysis || !expression) return;
+    if (!showAnalysis || !expression || !workerRef.current || !containerRef.current) return;
 
-    // We calculate for a generous range around the current view?
-    // Or just the visible view. Visible view is better for performance.
-    // We need dimensions.
-    if (!containerRef.current) return;
     const { clientWidth, clientHeight } = containerRef.current;
-    const dims = { width: clientWidth, height: clientHeight };
-    const state = stateRef.current;
 
-    const buffer = 50;
-    const start = screenToGraph(0 - buffer, 0, state, dims).x;
-    const end = screenToGraph(clientWidth + buffer, 0, state, dims).x;
-
-    const roots = findRoots(expression, start, end, 0.05); // finer step for root finding
-    const extrema = findExtrema(expression, start, end, 0.1);
-
-    setAnalysisPoints({ roots, extrema });
-  }, [expression, showAnalysis]); // Re-run on move? Expensive.
+    workerRef.current.postMessage({
+      id: Date.now().toString(),
+      type: 'ANALYZE',
+      payload: {
+        expression,
+        state: stateRef.current,
+        dims: { width: clientWidth, height: clientHeight },
+      },
+    });
+  }, [expression, showAnalysis]);
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
