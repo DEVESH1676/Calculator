@@ -79,7 +79,7 @@ describe('🛡️ MODCALC CERTIFICATION - Section 4 (Services)', () => {
             // @ts-ignore
             global.fetch.mockRejectedValue(new Error('Network error'));
             // @ts-ignore
-            db.currency.get.mockResolvedValueOnce({
+            db.currency.get.mockResolvedValue({
                 base: 'USD',
                 rates: { EUR: 0.85 },
                 timestamp: Date.now() - 10000000 // Old

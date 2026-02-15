@@ -56,6 +56,8 @@ export const generatePoints = (
   step: number = 1 // Pixel step
 ): Point[] => {
   if (!expression) return [];
+  // Safety: Prevent extremely small steps hanging the thread
+  if (step < 0.1) step = 0.1;
 
   const points: Point[] = [];
   const scope = { x: 0 };
