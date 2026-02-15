@@ -299,14 +299,19 @@ const StandardMode: React.FC = () => {
 
       {/* Keypad Area */}
       <div
-        className={`flex-1 ${theme.glass} backdrop-blur-2xl rounded-t-[3rem] p-6 shadow-2xl border-t border-white/10 transition-all duration-500`}
+        className={`flex-1 ${theme.glass} backdrop-blur-2xl rounded-t-[3rem] p-6 shadow-2xl border-t border-white/10 transition-all duration-500 overflow-y-auto`}
       >
-        <div className="flex flex-col h-full">
-          {/* Scientific Row (Collapsible) */}
+        <div className="flex flex-col md:flex-row h-full gap-6">
+
+          {/* Scientific Keypad (Desktop: Left Pane, Mobile: Collapsible/Top) */}
           <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${isScientific ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}
+            className={`
+              md:w-[40%] md:opacity-100 md:max-h-full 
+              transition-all duration-300 ease-in-out
+              ${isScientific ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0 md:max-h-full md:opacity-100 md:mb-0'}
+            `}
           >
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-4 md:grid-cols-3 gap-3 h-full content-center">
               {scientificButtons.map((btn) => (
                 <CalculatorButton
                   key={btn}
@@ -320,19 +325,22 @@ const StandardMode: React.FC = () => {
                       handleButtonClickFn(e, btn);
                     }
                   }}
-                  className="rounded-xl text-xs" // Override base class
+                  className="rounded-2xl text-sm md:text-base h-14 md:h-auto font-bold tracking-wider"
                 />
               ))}
             </div>
           </div>
 
-          {/* Main Grid */}
-          <div className="grid grid-cols-4 gap-4 flex-1">
+          {/* Divider for Desktop */}
+          <div className="hidden md:block w-px bg-white/10 my-2"></div>
+
+          {/* Standard Grid (Desktop: Right Pane) */}
+          <div className="flex-1 grid grid-cols-4 gap-4 content-center">
             {standardButtons.map((btn) => (
               <CalculatorButton
                 key={btn.label}
                 label={btn.label === 'Sci' ? <MoreHorizontal size={24} /> : btn.label}
-                variant={btn.type as any} // Cast specific type
+                variant={btn.type as any}
                 isActive={btn.val === 'sci' && isScientific}
                 onClick={(e) => {
                   if (btn.val === 'sci') {
@@ -343,9 +351,8 @@ const StandardMode: React.FC = () => {
                 }}
                 className={cn(
                   btn.label === '0' ? 'col-span-1' : '',
-                  // Special handling for Sci button active state visual override if needed, 
-                  // but variant='scientific' logic handles isActive
-                  btn.val === 'sci' && isScientific ? 'text-[#00f5ff] bg-white/10' : ''
+                  'h-16 md:h-auto text-2xl md:text-3xl font-semibold', // Larger buttons
+                  btn.val === 'sci' ? 'md:hidden' : '' // Hide Sci toggle on desktop as it's always visible
                 )}
               />
             ))}
